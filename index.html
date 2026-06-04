@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Xorazmiy maktabi — 9-sinf imtihon testi</title>
+<style>
+  :root{
+    --blue:#1b3a6b;
+    --blue2:#2756a6;
+    --gold:#e0a800;
+    --green:#1e8e3e;
+    --red:#d23b3b;
+    --bg:#f0f3f8;
+    --card:#ffffff;
+    --line:#dde3ec;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+    background:var(--bg);
+    color:#1c2430;
+    line-height:1.5;
+  }
+  header{
+    background:linear-gradient(135deg,var(--blue),var(--blue2));
+    color:#fff;
+    padding:26px 16px;
+    text-align:center;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+  }
+  header h1{margin:0 0 6px;font-size:24px;}
+  header p{margin:2px 0;opacity:.92;font-size:15px;}
+  .wrap{max-width:860px;margin:0 auto;padding:18px 14px 60px;}
+  .info{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 18px;
+    margin:18px 0;
+    box-shadow:0 1px 4px rgba(0,0,0,.05);
+  }
+  .info ul{margin:8px 0 0;padding-left:20px;}
+  .info li{margin:4px 0;}
+  .name-box{
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px;
+  }
+  .name-box input{
+    flex:1;min-width:200px;padding:10px 12px;border:1px solid var(--line);
+    border-radius:8px;font-size:15px;
+  }
+  .section-title{
+    background:var(--blue);color:#fff;padding:10px 16px;border-radius:10px;
+    margin:26px 0 10px;font-size:18px;font-weight:600;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .section-title span{font-size:13px;font-weight:400;opacity:.85;}
+  .q{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .q-head{font-weight:600;margin-bottom:10px;}
+  .q-head .num{color:var(--blue2);}
+  .q-head .pts{float:right;font-size:12px;color:#8a93a3;font-weight:400;}
+  .opt{display:block;padding:8px 10px;margin:5px 0;border:1px solid var(--line);
+    border-radius:8px;cursor:pointer;transition:.15s;}
+  .opt:hover{background:#f3f7ff;border-color:var(--blue2);}
+  .opt input{margin-right:9px;}
+  .opt.correct{background:#e7f6ec;border-color:var(--green);}
+  .opt.wrong{background:#fbe9e9;border-color:var(--red);}
+  .submit-btn{
+    display:block;width:100%;margin:30px 0 0;padding:16px;font-size:18px;
+    font-weight:700;color:#fff;background:var(--green);border:none;border-radius:12px;
+    cursor:pointer;box-shadow:0 3px 8px rgba(30,142,62,.3);
+  }
+  .submit-btn:hover{filter:brightness(1.05);}
+  .retry-btn{
+    display:inline-block;margin-top:14px;padding:11px 22px;font-size:15px;
+    font-weight:600;color:#fff;background:var(--blue2);border:none;border-radius:9px;cursor:pointer;
+  }
+  #result{
+    position:fixed;inset:0;background:rgba(15,25,45,.78);display:none;
+    align-items:center;justify-content:center;padding:18px;z-index:50;
+  }
+  #result .card{
+    background:#fff;border-radius:18px;max-width:440px;width:100%;text-align:center;
+    padding:30px 26px;box-shadow:0 12px 40px rgba(0,0,0,.3);animation:pop .25s ease;
+  }
+  @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+  #result .emoji{font-size:56px;margin-bottom:6px;}
+  #result h2{margin:6px 0;font-size:24px;}
+  #result .score{font-size:42px;font-weight:800;margin:10px 0;}
+  #result .pass{color:var(--green);}
+  #result .fail{color:var(--red);}
+  .bar{height:14px;background:#e6eaf1;border-radius:8px;overflow:hidden;margin:14px 0;}
+  .bar > div{height:100%;width:0;transition:width .8s ease;}
+  .stat{font-size:14px;color:#566;margin:4px 0;}
+  .breakdown{text-align:left;margin-top:14px;font-size:14px;border-top:1px solid var(--line);padding-top:12px;}
+  .breakdown div{display:flex;justify-content:space-between;padding:3px 0;}
+  footer{text-align:center;padding:18px;color:#8a93a3;font-size:13px;}
+  .warn{color:var(--red);font-size:14px;margin-top:8px;min-height:18px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Muhammad al-Xorazmiy nomidagi maktab</h1>
+  <p>Farg'ona shahri</p>
+  <p>9-sinf — Imtihonga tayyorgarlik testi</p>
+</header>
+
+<div class="wrap">
+  <div class="info">
+    <strong>Imtihon haqida:</strong>
+    <ul>
+      <li>Jami <b>50 ta savol</b>: Algebra (12), Geometriya (8), Fizika (15), Ingliz tili (15)</li>
+      <li>Har bir savol <b>2 ball</b>. Maksimal ball — <b>100</b>.</li>
+      <li>Imtihondan o'tish uchun kamida <b>60 ball</b> to'plang.</li>
+      <li>Har bir savol uchun bitta to'g'ri javobni belgilang, so'ng pastdagi tugmani bosing.</li>
+    </ul>
+    <div class="name-box">
+      <input id="student" type="text" placeholder="Ism familiyangizni kiriting...">
+    </div>
+    <div class="warn" id="warn"></div>
+  </div>
+
+  <form id="examForm"></form>
+
+  <button class="submit-btn" id="submitBtn">Testni yakunlash va natijani ko'rish</button>
+</div>
+
+<div id="result">
+  <div class="card">
+    <div class="emoji" id="rEmoji">🎓</div>
+    <h2 id="rTitle"></h2>
+    <div class="score" id="rScore"></div>
+    <div class="bar"><div id="rBar"></div></div>
+    <div class="stat" id="rStat"></div>
+    <div class="breakdown" id="rBreak"></div>
+    <button class="retry-btn" onclick="location.reload()">Qaytadan ishlash</button>
+  </div>
+</div>
+
+<footer>Al-Xorazmiy maktabi · Farg'ona · 9-sinf imtihon testi</footer>
+
+<script>
+/* Har bir savol: matn (q), variantlar (o), to'g'ri javob indeksi (a), bo'lim (s) */
+const questions = [
+  /* ---------- ALGEBRA (12) ---------- */
+  {s:"Algebra", q:"x² − 5x + 6 = 0 tenglamaning ildizlari qaysi?", o:["2 va 3","−2 va −3","1 va 6","−1 va −6"], a:0},
+  {s:"Algebra", q:"(a + b)² ifodasi nimaga teng?", o:["a² + b²","a² + 2ab + b²","a² − 2ab + b²","a² − b²"], a:1},
+  {s:"Algebra", q:"3x − 7 = 2x + 5 tenglamani yeching.", o:["x = 12","x = −12","x = 2","x = −2"], a:0},
+  {s:"Algebra", q:"Arifmetik progressiyada a₁ = 3, d = 4. a₅ ni toping.", o:["15","17","19","23"], a:2},
+  {s:"Algebra", q:"√144 + √25 ifodaning qiymati:", o:["7","13","17","169"], a:2},
+  {s:"Algebra", q:"2⁵ · 2³ ko'paytma nechaga teng?", o:["64","128","256","512"], a:2},
+  {s:"Algebra", q:"x² − 9 ifodani ko'paytuvchilarga ajrating.", o:["(x−3)(x+3)","(x−9)(x+1)","(x−3)²","(x+9)(x−1)"], a:0},
+  {s:"Algebra", q:"Kvadrat tenglama diskriminanti formulasi qaysi?", o:["b² + 4ac","b² − 4ac","−b/2a","2a"], a:1},
+  {s:"Algebra", q:"Geometrik progressiyada b₁ = 2, q = 3. b₄ ni toping.", o:["18","24","54","162"], a:2},
+  {s:"Algebra", q:"f(x) = 2x + 1 bo'lsa, f(3) qiymati:", o:["4","5","6","7"], a:3},
+  {s:"Algebra", q:"5x > 20 tengsizlikning yechimi:", o:["x > 4","x < 4","x > 100","x < 100"], a:0},
+  {s:"Algebra", q:"Sistema: x + y = 10, x − y = 4. x ning qiymati:", o:["3","5","6","7"], a:3},
+
+  /* ---------- GEOMETRIYA (8) ---------- */
+  {s:"Geometriya", q:"To'g'ri burchakli uchburchakda katetlar 3 va 4. Gipotenuza uzunligi:", o:["5","6","7","25"], a:0},
+  {s:"Geometriya", q:"Radiusi 5 sm bo'lgan aylananing uzunligi (π≈3,14):", o:["10 sm","15,7 sm","31,4 sm","78,5 sm"], a:2},
+  {s:"Geometriya", q:"Uchburchak ichki burchaklari yig'indisi nechaga teng?", o:["90°","180°","270°","360°"], a:1},
+  {s:"Geometriya", q:"Tomoni 6 sm bo'lgan kvadratning yuzasi:", o:["12 sm²","18 sm²","24 sm²","36 sm²"], a:3},
+  {s:"Geometriya", q:"sin 30° qiymati nechaga teng?", o:["0","0,5","√3/2","1"], a:1},
+  {s:"Geometriya", q:"Radiusi 4 sm bo'lgan doiraning yuzasi (π≈3,14):", o:["12,56 sm²","25,12 sm²","50,24 sm²","100,48 sm²"], a:2},
+  {s:"Geometriya", q:"Tomonlari 8 va 5 bo'lgan to'g'ri to'rtburchak perimetri:", o:["13","26","40","80"], a:1},
+  {s:"Geometriya", q:"cos 60° qiymati nechaga teng?", o:["0","0,5","√3/2","1"], a:1},
+
+  /* ---------- FIZIKA (15) ---------- */
+  {s:"Fizika", q:"To'g'ri chiziqli tekis harakatda tezlik formulasi:", o:["v = s/t","v = t/s","v = s·t","v = s + t"], a:0},
+  {s:"Fizika", q:"Nyutonning ikkinchi qonuni qaysi formula bilan ifodalanadi?", o:["F = m/a","F = ma","F = a/m","F = mv"], a:1},
+  {s:"Fizika", q:"Erkin tushish tezlanishi (g) taxminan nechaga teng?", o:["0,98 m/s²","1,8 m/s²","9,8 m/s²","98 m/s²"], a:2},
+  {s:"Fizika", q:"Kuchning SI dagi o'lchov birligi qaysi?", o:["Joul","Vatt","Paskal","Nyuton"], a:3},
+  {s:"Fizika", q:"Mexanik ish formulasi qaysi?", o:["A = F·s","A = F/s","A = m·v","A = s/t"], a:0},
+  {s:"Fizika", q:"Quvvatning o'lchov birligi:", o:["Joul","Vatt","Nyuton","Amper"], a:1},
+  {s:"Fizika", q:"Om qonuni formulasi qaysi?", o:["I = R/U","I = U·R","I = U/R","I = U + R"], a:2},
+  {s:"Fizika", q:"Zichlik formulasi qaysi?", o:["ρ = m/V","ρ = V/m","ρ = m·V","ρ = m + V"], a:0},
+  {s:"Fizika", q:"Kinetik energiya formulasi qaysi?", o:["E = mgh","E = mv²/2","E = mv","E = ma"], a:1},
+  {s:"Fizika", q:"Bosim formulasi qaysi?", o:["p = S/F","p = F/S","p = F·S","p = F + S"], a:1},
+  {s:"Fizika", q:"Tok kuchining o'lchov birligi:", o:["Volt","Om","Amper","Vatt"], a:2},
+  {s:"Fizika", q:"Massasi 2 kg jismga 3 m/s² tezlanish bering. Unga ta'sir etuvchi kuch:", o:["1,5 N","5 N","6 N","8 N"], a:2},
+  {s:"Fizika", q:"Potensial energiya formulasi qaysi?", o:["E = mgh","E = mv²/2","E = F·s","E = m/V"], a:0},
+  {s:"Fizika", q:"Avtomobil 100 m yo'lni 5 s da bosib o'tdi. Uning tezligi:", o:["0,05 m/s","20 m/s","105 m/s","500 m/s"], a:1},
+  {s:"Fizika", q:"Energiya va ishning o'lchov birligi:", o:["Nyuton","Vatt","Joul","Paskal"], a:2},
+
+  /* ---------- INGLIZ TILI (15) ---------- */
+  {s:"Ingliz tili", q:"Choose the correct form: \"She ___ to school every day.\"", o:["go","goes","going","gone"], a:1},
+  {s:"Ingliz tili", q:"What is the plural form of \"child\"?", o:["childs","childes","children","childrens"], a:2},
+  {s:"Ingliz tili", q:"Complete: \"I have lived here ___ 2010.\"", o:["since","for","from","ago"], a:0},
+  {s:"Ingliz tili", q:"What is the past tense of \"go\"?", o:["goed","gone","went","going"], a:2},
+  {s:"Ingliz tili", q:"Choose the correct article: \"___ apple a day keeps the doctor away.\"", o:["A","An","The","—"], a:1},
+  {s:"Ingliz tili", q:"Complete: \"They ___ playing football now.\"", o:["is","am","are","be"], a:2},
+  {s:"Ingliz tili", q:"What is the comparative form of \"good\"?", o:["gooder","more good","better","best"], a:2},
+  {s:"Ingliz tili", q:"Complete: \"If it rains, I ___ stay at home.\"", o:["will","would","am","was"], a:0},
+  {s:"Ingliz tili", q:"What is the opposite of \"happy\"?", o:["glad","sad","big","tall"], a:1},
+  {s:"Ingliz tili", q:"Complete: \"He has ___ his homework.\"", o:["do","did","done","doing"], a:2},
+  {s:"Ingliz tili", q:"Choose the correct: \"There ___ many books on the table.\"", o:["is","are","am","was"], a:1},
+  {s:"Ingliz tili", q:"Complete: \"I ___ never been to London.\"", o:["has","have","am","was"], a:1},
+  {s:"Ingliz tili", q:"Choose the question word: \"___ do you live?\" — In Fergana.", o:["What","Who","Where","When"], a:2},
+  {s:"Ingliz tili", q:"Choose the correct preposition: \"She is good ___ English.\"", o:["at","in","on","of"], a:0},
+  {s:"Ingliz tili", q:"Complete: \"My brother is ___ than me.\"", o:["tall","taller","tallest","more tall"], a:1}
+];
+
+const PASS = 60;            // o'tish uchun kerakli ball
+const PTS_PER = 2;          // har bir savol balli
+const letters = ["A","B","C","D"];
+const form = document.getElementById("examForm");
+
+/* Savollarni chizish */
+let currentSection = "";
+questions.forEach((item, i) => {
+  if (item.s !== currentSection) {
+    currentSection = item.s;
+    const count = questions.filter(x => x.s === item.s).length;
+    const st = document.createElement("div");
+    st.className = "section-title";
+    st.innerHTML = `<span style="font-weight:700;font-size:18px">${item.s}</span><span>${count} ta savol · ${count*PTS_PER} ball</span>`;
+    form.appendChild(st);
+  }
+  const div = document.createElement("div");
+  div.className = "q";
+  div.id = "q" + i;
+  let opts = "";
+  item.o.forEach((opt, j) => {
+    opts += `<label class="opt"><input type="radio" name="q${i}" value="${j}"><b>${letters[j]})</b> ${opt}</label>`;
+  });
+  div.innerHTML = `<div class="q-head"><span class="num">${i+1}-savol.</span> <span class="pts">${PTS_PER} ball</span><br>${item.q}</div>${opts}`;
+  form.appendChild(div);
+});
+
+/* Natijani hisoblash */
+document.getElementById("submitBtn").addEventListener("click", () => {
+  const name = document.getElementById("student").value.trim();
+  if (!name) {
+    document.getElementById("warn").textContent = "Iltimos, avval ism familiyangizni kiriting.";
+    document.getElementById("student").focus();
+    window.scrollTo({top:0, behavior:"smooth"});
+    return;
+  }
+
+  let score = 0, answered = 0;
+  const sec = {};
+  questions.forEach((item, i) => {
+    sec[item.s] = sec[item.s] || {correct:0, total:0};
+    sec[item.s].total++;
+    const chosen = form.querySelector(`input[name="q${i}"]:checked`);
+    const labels = document.querySelectorAll(`#q${i} .opt`);
+    labels.forEach(l => l.classList.remove("correct","wrong"));
+    if (chosen) {
+      answered++;
+      const val = parseInt(chosen.value, 10);
+      if (val === item.a) {
+        score += PTS_PER;
+        sec[item.s].correct++;
+        labels[val].classList.add("correct");
+      } else {
+        labels[val].classList.add("wrong");
+        labels[item.a].classList.add("correct");
+      }
+    } else {
+      labels[item.a].classList.add("correct");
+    }
+  });
+
+  const passed = score >= PASS;
+  const pct = Math.round(score / (questions.length*PTS_PER) * 100);
+
+  document.getElementById("rEmoji").textContent = passed ? "🎉" : "📚";
+  document.getElementById("rTitle").innerHTML = passed
+    ? `<span class="pass">Tabriklaymiz, ${name}!<br>Siz imtihondan o'tdingiz!</span>`
+    : `<span class="fail">${name}, afsuski o'ta olmadingiz.</span>`;
+  document.getElementById("rScore").innerHTML = `<span class="${passed?'pass':'fail'}">${score} / 100 ball</span>`;
+
+  const bar = document.getElementById("rBar");
+  bar.style.background = passed ? "var(--green)" : "var(--red)";
+  setTimeout(() => { bar.style.width = pct + "%"; }, 60);
+
+  document.getElementById("rStat").textContent =
+    `To'g'ri javoblar: ${score/PTS_PER} / ${questions.length} · Foiz: ${pct}% · O'tish chegarasi: ${PASS} ball`;
+
+  let bd = "";
+  for (const k in sec) {
+    bd += `<div><span>${k}</span><span>${sec[k].correct}/${sec[k].total} (${sec[k].correct*PTS_PER} ball)</span></div>`;
+  }
+  document.getElementById("rBreak").innerHTML = bd;
+
+  document.getElementById("result").style.display = "flex";
+});
+</script>
+</body>
+</html>
