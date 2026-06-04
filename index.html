@@ -302,8 +302,9 @@
       <div id="hist-list"></div>
     </div>
     <div class="source-note">
-      Savollar ommaviy <b>Al-Xorazmiy / Prezident maktablari tayyorlov testlari</b> uslubida tuzilgan
-      (manbalar: Al-Xorazmiy olimpiadasi testlari, Prezident maktabi namuna testlari — scribd.com, gauthmath.com, idum.uz).
+      Savollar <b>haqiqiy imtihon / olimpiada darajasida</b> — Al-Xorazmiy olimpiadasi va Prezident maktablari
+      kirish imtihoni uslubida tuzilgan (manbalar: Al-Xorazmiy olimpiadasi test topshiriqlari, Prezident maktabi
+      namuna testlari — scribd.com, gauthmath.com, studocu.com, idum.uz). Barcha javoblar tekshirilgan.
     </div>
     <footer>© Al-Xorazmiy maktabi · Farg'ona · 9-sinf imtihon platformasi</footer>
   </div>
@@ -389,63 +390,63 @@
 /* ====================== SAVOLLAR BAZASI (qiyinlashtirilgan) ====================== */
 const letters = ["A","B","C","D"];
 const questions = [
-  /* ---------- ALGEBRA / MATEMATIKA (12) — Al-Xorazmiy/Prezident maktabi tayyorlov uslubida ---------- */
-  {s:"Algebra", q:"5x − 7 = 18 bo'lsa, x ning qiymatini toping.", o:["4","5","6","7"], a:1},
-  {s:"Algebra", q:"Yahyoning pianino darsi soat 3:55 da boshlanib, 4:45 da tugadi. Dars necha daqiqa davom etdi?", o:["45 daqiqa","50 daqiqa","55 daqiqa","90 daqiqa"], a:1},
-  {s:"Algebra", q:"Ikki xonali sonning raqamlari yig'indisi 12. O'nlar xonasidagi raqam birlar xonasidagidan 2 ta ortiq. Bu son nechaga teng?", o:["57","75","84","93"], a:1},
-  {s:"Algebra", q:"Mahsulot narxi 40 000 so'm edi. U 15% ga arzonlashtirildi. Yangi narxi qancha?", o:["34 000 so'm","36 000 so'm","25 000 so'm","6 000 so'm"], a:0},
-  {s:"Algebra", q:"3(x − 2) = 2x + 5 tenglamani yeching.", o:["9","11","13","1"], a:1},
-  {s:"Algebra", q:"2, 5, 8, 11, ... ketma-ketlikning 10-hadini toping.", o:["27","29","30","32"], a:1},
-  {s:"Algebra", q:"Bir sonning 30% i 24 ga teng. Bu son nechaga teng?", o:["72","80","90","8"], a:1},
-  {s:"Algebra", q:"Avtomobil 180 km yo'lni 2,5 soatda bosib o'tdi. Uning o'rtacha tezligi qancha?", o:["60 km/soat","72 km/soat","75 km/soat","90 km/soat"], a:1},
-  {s:"Algebra", q:"1500 so'm 2:3 nisbatda ikki bolaga bo'lib berildi. Katta ulush qancha bo'ladi?", o:["600 so'm","750 so'm","900 so'm","1000 so'm"], a:2},
-  {s:"Algebra", q:"x² − 7x + 12 = 0 tenglamaning ildizlarini toping.", o:["3 va 4","−3 va −4","2 va 6","1 va 12"], a:0},
-  {s:"Algebra", q:"Otaning yoshi o'g'lining yoshidan 4 marta katta. Ularning yoshlari yig'indisi 50 ga teng. Otaning yoshi nechada?", o:["30","36","40","45"], a:2},
-  {s:"Algebra", q:"2/3 + 1/6 ni hisoblang.", o:["3/9","5/6","1/2","2/3"], a:1},
+  /* ---------- ALGEBRA / MATEMATIKA (12) — Al-Xorazmiy olimpiada / Prezident maktabi darajasida ---------- */
+  {s:"Algebra", q:"Qatorda 37 ta son yozilgan bo'lib, ixtiyoriy ketma-ket 6 ta sonning yig'indisi 29 ga teng. Birinchi son 5 bo'lsa, oxirgi sonni toping.", o:["5","24","29","37"], a:0},
+  {s:"Algebra", q:"7^2024 sonining oxirgi (birlar xonasidagi) raqamini toping.", o:["3","7","1","9"], a:2},
+  {s:"Algebra", q:"100! (yuzning faktoriali) soni nechta nol bilan tugaydi?", o:["20","25","10","24"], a:3},
+  {s:"Algebra", q:"x₁ va x₂ — x² − 6x + 4 = 0 tenglamaning ildizlari. x₁² + x₂² ni toping.", o:["28","20","32","36"], a:0},
+  {s:"Algebra", q:"f(x+1) = f(x) + 3 va f(1) = 2 bo'lsa, f(10) ni toping.", o:["27","30","29","32"], a:2},
+  {s:"Algebra", q:"2^x = 8^(x−2) tenglamani yeching.", o:["2","3","4","6"], a:1},
+  {s:"Algebra", q:"x + y = 5 va x³ + y³ = 35 bo'lsa, xy ko'paytmani toping.", o:["4","5","8","6"], a:3},
+  {s:"Algebra", q:"0, 1, 2, 3, 4 raqamlaridan raqamlari takrorlanmaydigan nechta uch xonali son tuzish mumkin?", o:["60","100","48","125"], a:2},
+  {s:"Algebra", q:"Mahsulot narxi avval 20% ga oshdi, so'ng yangi narxdan 20% ga kamaydi. Dastlabki narxga nisbatan necha % o'zgardi?", o:["4% ga kamaydi","4% ga oshdi","o'zgarmadi","2% ga kamaydi"], a:0},
+  {s:"Algebra", q:"Bir ishchi ishni 6 kunda, ikkinchisi 12 kunda bajaradi. Birgalikda bu ishni necha kunda bajarishadi?", o:["3 kun","8 kun","9 kun","4 kun"], a:3},
+  {s:"Algebra", q:"5 yil oldin otaning yoshi o'g'lining yoshidan 3 marta katta edi. Hozir esa 2 marta katta. O'g'ilning hozirgi yoshi nechada?", o:["15","10","20","25"], a:1},
+  {s:"Algebra", q:"34*5 ko'rinishidagi to'rt xonali son 9 ga bo'linadi (* — bitta raqam). * o'rnida qaysi raqam turishi kerak?", o:["3","9","6","7"], a:2},
 
   /* ---------- GEOMETRIYA (8) ---------- */
-  {s:"Geometriya", q:"To'g'ri burchakli uchburchakning katetlari 6 va 8 ga teng. Gipotenuzasi nechaga teng?", o:["9","10","12","14"], a:1},
-  {s:"Geometriya", q:"Kvadratning perimetri 36 sm. Uning yuzasini toping.", o:["72 sm²","81 sm²","84 sm²","90 sm²"], a:1},
-  {s:"Geometriya", q:"Uchburchakning bir burchagi 90°, ikkinchisi 35°. Uchinchi burchak nechaga teng?", o:["45°","55°","65°","75°"], a:1},
-  {s:"Geometriya", q:"Radiusi 7 sm bo'lgan aylananing uzunligini toping (π ≈ 22/7).", o:["22 sm","44 sm","49 sm","154 sm"], a:1},
-  {s:"Geometriya", q:"To'g'ri to'rtburchakning tomonlari 12 va 5 sm. Diagonali nechaga teng?", o:["13 sm","15 sm","17 sm","7 sm"], a:0},
-  {s:"Geometriya", q:"Radiusi 10 sm bo'lgan doiraning yuzasini toping (π ≈ 3,14).", o:["31,4 sm²","100 sm²","314 sm²","628 sm²"], a:2},
-  {s:"Geometriya", q:"Tomoni 10 sm bo'lgan teng tomonli uchburchakning perimetri:", o:["20 sm","30 sm","40 sm","100 sm"], a:1},
-  {s:"Geometriya", q:"Qirrasi 4 sm bo'lgan kubning hajmini toping.", o:["16 sm³","48 sm³","64 sm³","96 sm³"], a:2},
+  {s:"Geometriya", q:"Katetlari 5 va 12 ga teng to'g'ri burchakli uchburchakka ichki chizilgan aylananing radiusini toping.", o:["1","2","2,5","3"], a:1},
+  {s:"Geometriya", q:"Tomoni 6 ga teng teng tomonli uchburchakning yuzasini toping.", o:["12√3","18√3","36√3","9√3"], a:3},
+  {s:"Geometriya", q:"Aylanaga ichki chizilgan burchak 40°. Shu yoyga tayanган markaziy burchak nechaga teng?", o:["80°","40°","20°","160°"], a:0},
+  {s:"Geometriya", q:"Radiusi 6 ga teng aylanaga ichki chizilgan kvadratning yuzasini toping.", o:["36","144","72","100"], a:2},
+  {s:"Geometriya", q:"Kvadratning diagonali 8 ga teng. Uning yuzasini toping.", o:["16","32","48","64"], a:1},
+  {s:"Geometriya", q:"Muntazam beshburchakning ichki burchagi necha gradusga teng?", o:["72°","120°","135°","108°"], a:3},
+  {s:"Geometriya", q:"Uchlari A(1; 1), B(5; 1), C(5; 4) bo'lgan uchburchakning perimetrini toping.", o:["12","13","14","15"], a:0},
+  {s:"Geometriya", q:"Trapetsiyaning o'rta chizig'i 8 sm, balandligi 5 sm. Uning yuzasini toping.", o:["13 sm²","20 sm²","40 sm²","80 sm²"], a:2},
 
   /* ---------- FIZIKA (15) ---------- */
-  {s:"Fizika", q:"Jism v₀ = 5 m/s tezlik va a = 2 m/s² tezlanish bilan harakatlanadi. 4 s da bosib o'tgan yo'l:", o:["20 m","28 m","36 m","52 m"], a:2},
-  {s:"Fizika", q:"Massasi 2 kg jismga 10 N kuch ta'sir etadi. Tezlanish nechaga teng?", o:["2 m/s²","5 m/s²","8 m/s²","20 m/s²"], a:1},
-  {s:"Fizika", q:"Jism 45 m balandlikdan erkin tushadi (g = 10 m/s²). Tushish vaqti:", o:["2 s","3 s","4,5 s","9 s"], a:1},
-  {s:"Fizika", q:"Massasi 4 kg, tezligi 3 m/s jismning kinetik energiyasi:", o:["12 J","18 J","36 J","6 J"], a:1},
-  {s:"Fizika", q:"F = 20 N kuch jismni harakat yo'nalishiga 60° burchak ostida 5 m ga ko'chirdi. Bajarilgan ish:", o:["100 J","50 J","20 J","10 J"], a:1},
-  {s:"Fizika", q:"30 sekundda 600 J ish bajarildi. Quvvat nechaga teng?", o:["18 W","20 W","30 W","600 W"], a:1},
-  {s:"Fizika", q:"Om qonuni bo'yicha U = 12 V, R = 4 Ω. Tok kuchi (I):", o:["2 A","3 A","4 A","48 A"], a:1},
-  {s:"Fizika", q:"3 Ω va 6 Ω qarshiliklar parallel ulangan. Umumiy qarshilik:", o:["9 Ω","4,5 Ω","2 Ω","18 Ω"], a:2},
-  {s:"Fizika", q:"Massasi 200 g, hajmi 25 sm³ jismning zichligi:", o:["4 g/sm³","8 g/sm³","5 g/sm³","0,125 g/sm³"], a:1},
-  {s:"Fizika", q:"Suyuqlik (suv, ρ=1000 kg/m³) ichida 2 m chuqurlikdagi bosim (g=10):", o:["2 kPa","20 kPa","200 kPa","2000 kPa"], a:1},
-  {s:"Fizika", q:"Massasi 2 kg, tezligi 10 m/s jismning impulsi:", o:["12 kg·m/s","20 kg·m/s","100 kg·m/s","5 kg·m/s"], a:1},
-  {s:"Fizika", q:"Massasi 5 kg jismning og'irligi (g = 10 m/s²):", o:["5 N","15 N","50 N","0,5 N"], a:2},
-  {s:"Fizika", q:"Avtomobil 60 km yo'lni 60 km/soat, keyingi 60 km ni 30 km/soat bilan bosdi. O'rtacha tezlik:", o:["45 km/soat","40 km/soat","50 km/soat","30 km/soat"], a:1},
-  {s:"Fizika", q:"2 kg suvni 10°C ga isitish uchun zarur issiqlik (c = 4200 J/kg·°C):", o:["42 kJ","84 kJ","8,4 kJ","420 kJ"], a:1},
-  {s:"Fizika", q:"U = 220 V, I = 2 A bo'lsa, elektr quvvati:", o:["110 W","220 W","440 W","880 W"], a:2},
+  {s:"Fizika", q:"Tosh 20 m/s tezlik bilan vertikal yuqoriga otildi. U ko'tarilgan maksimal balandlik (g = 10 m/s²):", o:["20 m","10 m","40 m","80 m"], a:0},
+  {s:"Fizika", q:"Erkin tushayotgan jism harakatining 3-sekundida qancha yo'l bosadi (g = 10 m/s², boshlang'ich tezlik nol)?", o:["15 m","30 m","25 m","45 m"], a:2},
+  {s:"Fizika", q:"Jism 5 m balandlikdan erkin tushdi. Yerga urilish paytidagi tezligi (g = 10 m/s²):", o:["5 m/s","10 m/s","25 m/s","50 m/s"], a:1},
+  {s:"Fizika", q:"Massasi 3 kg yukni 4 m balandlikka bir tekis ko'tarish uchun bajarilgan ish (g = 10 m/s²):", o:["12 J","60 J","1200 J","120 J"], a:3},
+  {s:"Fizika", q:"Massasi 1000 kg avtomobil 10 m/s tezlik bilan harakatlanmoqda. Uning kinetik energiyasi:", o:["50 kJ","5 kJ","100 kJ","500 kJ"], a:0},
+  {s:"Fizika", q:"4 Ω va 6 Ω qarshiliklar ketma-ket ulangan, manba kuchlanishi 20 V. Zanjirdagi tok kuchi:", o:["1 A","4 A","2 A","5 A"], a:2},
+  {s:"Fizika", q:"Ikkita 4 Ω qarshilik parallel ulangan, ularga 2 Ω qarshilik ketma-ket ulandi. Umumiy qarshilik:", o:["2 Ω","4 Ω","6 Ω","10 Ω"], a:1},
+  {s:"Fizika", q:"5 Ω rezistordan 2 A tok 10 s davomida o'tdi. Ajralib chiqqan issiqlik miqdori (Joul-Lens qonuni):", o:["100 J","400 J","50 J","200 J"], a:3},
+  {s:"Fizika", q:"Hajmi 0,002 m³ jism to'liq suvga botirilgan (ρ = 1000 kg/m³). Unga ta'sir etuvchi Arximed kuchi (g = 10):", o:["20 N","2 N","200 N","0,2 N"], a:0},
+  {s:"Fizika", q:"Massasi 2 kg jismning tezligi 4 m/s dan 10 m/s gacha ortdi. Uning impulsi o'zgarishi:", o:["8 kg·m/s","20 kg·m/s","12 kg·m/s","28 kg·m/s"], a:2},
+  {s:"Fizika", q:"Massasi 2 kg jismga 10 N kuch ta'sir etadi, ishqalanish kuchi 4 N. Jismning tezlanishi:", o:["2 m/s²","3 m/s²","5 m/s²","7 m/s²"], a:1},
+  {s:"Fizika", q:"200 N og'irlikdagi yuk 0,5 m² yuzaga bosib turibdi. Hosil bo'lgan bosim:", o:["100 Pa","200 Pa","40 Pa","400 Pa"], a:3},
+  {s:"Fizika", q:"0°C dagi 100 g muzni butunlay suvga aylantirish uchun zarur issiqlik (λ = 340 000 J/kg):", o:["34 kJ","3,4 kJ","340 kJ","100 kJ"], a:0},
+  {s:"Fizika", q:"Avtomobilning tezligi 72 km/soat. Bu tezlikni m/s da ifodalang.", o:["10 m/s","25 m/s","20 m/s","72 m/s"], a:2},
+  {s:"Fizika", q:"Quyoshdan Yergacha masofa 1,5·10¹¹ m. Yorug'lik (3·10⁸ m/s) bu masofani necha sekundda bosib o'tadi?", o:["50 s","500 s","5000 s","8 s"], a:1},
 
-  /* ---------- INGLIZ TILI (15) ---------- */
-  {s:"Ingliz tili", q:"Conditional (Type 2): If I ___ rich, I would travel the world.", o:["am","was","were","will be"], a:2},
-  {s:"Ingliz tili", q:"Reported speech: He said that he ___ tired.", o:["is","was","has","were"], a:1},
-  {s:"Ingliz tili", q:"Passive voice: The letter ___ yesterday.", o:["was wrote","was written","is written","wrote"], a:1},
-  {s:"Ingliz tili", q:"Present Perfect Continuous: I ___ for two hours.", o:["wait","am waiting","have been waiting","waited"], a:2},
-  {s:"Ingliz tili", q:"What does the phrasal verb \"give up\" mean?", o:["to continue","to stop trying / quit","to start","to win"], a:1},
-  {s:"Ingliz tili", q:"Choose the correct verb: Neither of them ___ at home.", o:["is","are","were","have"], a:0},
-  {s:"Ingliz tili", q:"Relative pronoun: The woman ___ bag was stolen called the police.", o:["who","which","whose","whom"], a:2},
-  {s:"Ingliz tili", q:"Gerund form: I enjoy ___ books in the evening.", o:["read","to read","reading","reads"], a:2},
-  {s:"Ingliz tili", q:"Modal of prohibition: You ___ smoke here, it is forbidden.", o:["mustn't","don't have to","needn't","shouldn't"], a:0},
-  {s:"Ingliz tili", q:"Word formation: the noun form of the verb \"decide\" is ___.", o:["decision","decisive","deciding","decided"], a:0},
-  {s:"Ingliz tili", q:"Tag question: She is a teacher, ___?", o:["is she","isn't she","doesn't she","wasn't she"], a:1},
-  {s:"Ingliz tili", q:"Quantifier: How ___ money do you have?", o:["many","much","more","few"], a:1},
-  {s:"Ingliz tili", q:"Past Perfect: After he ___ his work, he went home.", o:["finish","finished","had finished","has finished"], a:2},
-  {s:"Ingliz tili", q:"Idiom: \"It's raining cats and dogs\" means it is raining ___.", o:["lightly","very heavily","a little","not at all"], a:1},
-  {s:"Ingliz tili", q:"Superlative: This is the ___ film I have ever seen.", o:["interesting","more interesting","most interesting","interestingest"], a:2}
+  /* ---------- INGLIZ TILI (15) — Prezident maktabi / ilg'or (advanced) daraja ---------- */
+  {s:"Ingliz tili", q:"Inversion: Never ___ such a breathtaking view before.", o:["I have seen","have I seen","I saw","did I see"], a:1},
+  {s:"Ingliz tili", q:"Mixed conditional: If I ___ harder last year, I would be at university now.", o:["studied","study","had studied","would study"], a:2},
+  {s:"Ingliz tili", q:"Subjunctive: The director insisted that every employee ___ present at the meeting.", o:["be","is","was","will be"], a:0},
+  {s:"Ingliz tili", q:"Phrasal verb: The match was ___ because of the heavy rain.", o:["put on","put up","put down","called off"], a:3},
+  {s:"Ingliz tili", q:"Collocation: He has a great ___ of humour and makes everyone laugh.", o:["feeling","sense","idea","way"], a:1},
+  {s:"Ingliz tili", q:"Choose the correct: Despite ___ very hard, she didn't pass the exam.", o:["work","to work","working","worked"], a:2},
+  {s:"Ingliz tili", q:"Reduced relative clause: The man ___ next to me on the bus was a famous actor.", o:["sitting","sat","seated","sits"], a:0},
+  {s:"Ingliz tili", q:"I'd rather you ___ tell anyone about this secret.", o:["don't","not to","won't","didn't"], a:3},
+  {s:"Ingliz tili", q:"Idiom: 'To let the cat out of the bag' means ___.", o:["to buy a pet","to reveal a secret","to make a mistake","to run away fast"], a:1},
+  {s:"Ingliz tili", q:"Future Perfect: By next June, I ___ in this company for ten years.", o:["will work","am working","will have worked","work"], a:2},
+  {s:"Ingliz tili", q:"Inversion: No sooner ___ the door than the phone rang.", o:["had I opened","I opened","I had opened","did I opened"], a:0},
+  {s:"Ingliz tili", q:"Word formation: Her ___ to detail makes her an excellent editor. (attend)", o:["attentive","attentively","attended","attention"], a:3},
+  {s:"Ingliz tili", q:"Preposition: He was accused ___ stealing the documents.", o:["with","of","for","in"], a:1},
+  {s:"Ingliz tili", q:"Choose the correct: Hardly ___ students managed to solve the last problem.", o:["no","some","any","none"], a:2},
+  {s:"Ingliz tili", q:"Vocabulary: The word 'meticulous' is closest in meaning to ___.", o:["very careful","careless","generous","lazy"], a:0}
 ];
 
 const PASS = 60, PTS = 2, TOTAL = questions.length * PTS, DURATION = 150*60;  // 2 soat 30 daqiqa
