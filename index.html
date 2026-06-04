@@ -3,293 +3,639 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Al-Xorazmiy maktabi — 9-sinf imtihon testi</title>
+<title>Al-Xorazmiy maktabi — 9-sinf imtihon platformasi</title>
 <style>
   :root{
-    --blue:#1b3a6b;
-    --blue2:#2756a6;
-    --gold:#e0a800;
-    --green:#1e8e3e;
-    --red:#d23b3b;
-    --bg:#f0f3f8;
+    --bg1:#0f172a;
+    --bg2:#1e293b;
+    --indigo:#6366f1;
+    --indigo2:#4f46e5;
+    --violet:#8b5cf6;
+    --cyan:#06b6d4;
+    --green:#10b981;
+    --amber:#f59e0b;
+    --red:#ef4444;
     --card:#ffffff;
-    --line:#dde3ec;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --soft:#f1f5f9;
+    --shadow:0 10px 30px rgba(15,23,42,.12);
   }
-  *{box-sizing:border-box;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
   body{
-    margin:0;
-    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
-    background:var(--bg);
-    color:#1c2430;
-    line-height:1.5;
+    font-family:"Segoe UI",system-ui,-apple-system,Tahoma,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(99,102,241,.25), transparent 60%),
+      radial-gradient(1000px 500px at 110% 10%, rgba(6,182,212,.20), transparent 55%),
+      linear-gradient(160deg, var(--bg1), var(--bg2));
+    min-height:100vh;
+    line-height:1.55;
   }
-  header{
-    background:linear-gradient(135deg,var(--blue),var(--blue2));
-    color:#fff;
-    padding:26px 16px;
-    text-align:center;
-    box-shadow:0 3px 10px rgba(0,0,0,.15);
+  .screen{display:none;animation:fade .4s ease;}
+  .screen.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .container{max-width:920px;margin:0 auto;padding:20px 16px 60px;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+  .btn{
+    background:linear-gradient(135deg,var(--indigo),var(--violet));
+    color:#fff;font-weight:700;font-size:16px;padding:14px 22px;border-radius:14px;
+    box-shadow:0 8px 20px rgba(99,102,241,.35);transition:.2s;
   }
-  header h1{margin:0 0 6px;font-size:24px;}
-  header p{margin:2px 0;opacity:.92;font-size:15px;}
-  .wrap{max-width:860px;margin:0 auto;padding:18px 14px 60px;}
-  .info{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:16px 18px;
-    margin:18px 0;
-    box-shadow:0 1px 4px rgba(0,0,0,.05);
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(99,102,241,.45);}
+  .btn:active{transform:translateY(0);}
+  .btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);box-shadow:none;}
+  .btn.soft{background:var(--soft);color:var(--indigo2);box-shadow:none;}
+  .btn.green{background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 8px 20px rgba(16,185,129,.35);}
+  .btn.red{background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 8px 20px rgba(239,68,68,.3);}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+  /* ===== LOGIN ===== */
+  .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+  .login-card{
+    background:rgba(255,255,255,.98);border-radius:24px;padding:34px 30px;max-width:440px;width:100%;
+    box-shadow:0 25px 60px rgba(0,0,0,.4);animation:rise .5s ease;
   }
-  .info ul{margin:8px 0 0;padding-left:20px;}
-  .info li{margin:4px 0;}
-  .name-box{
-    display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px;
+  @keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+  .logo{
+    width:74px;height:74px;border-radius:20px;margin:0 auto 14px;
+    background:linear-gradient(135deg,var(--indigo),var(--cyan));
+    display:flex;align-items:center;justify-content:center;font-size:38px;
+    box-shadow:0 10px 24px rgba(99,102,241,.4);
   }
-  .name-box input{
-    flex:1;min-width:200px;padding:10px 12px;border:1px solid var(--line);
-    border-radius:8px;font-size:15px;
+  .login-card h1{text-align:center;font-size:22px;margin:0 0 4px;}
+  .login-card .sub{text-align:center;color:var(--muted);font-size:14px;margin:0 0 22px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px;}
+  .field input,.field select{
+    width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;
+    transition:.2s;background:#fff;
   }
-  .section-title{
-    background:var(--blue);color:#fff;padding:10px 16px;border-radius:10px;
-    margin:26px 0 10px;font-size:18px;font-weight:600;
-    display:flex;justify-content:space-between;align-items:center;
+  .field input:focus,.field select:focus{outline:none;border-color:var(--indigo);box-shadow:0 0 0 4px rgba(99,102,241,.12);}
+  .row2{display:flex;gap:12px;}
+  .row2 .field{flex:1;}
+  .warn{color:var(--red);font-size:13px;min-height:16px;margin:2px 0 8px;}
+
+  /* ===== TOP BAR ===== */
+  .topbar{
+    background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.12);padding:12px 16px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:20;
   }
-  .section-title span{font-size:13px;font-weight:400;opacity:.85;}
-  .q{
-    background:var(--card);border:1px solid var(--line);border-radius:12px;
-    padding:14px 16px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.04);
+  .topbar .brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:15px;}
+  .topbar .brand .mini{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--indigo),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:18px;}
+  .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--indigo));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;cursor:pointer;border:2px solid rgba(255,255,255,.5);}
+
+  /* ===== DASHBOARD ===== */
+  .hello{color:#fff;margin:18px 0 6px;}
+  .hello h2{margin:0;font-size:26px;}
+  .hello p{margin:4px 0 0;opacity:.8;}
+  .card{background:var(--card);border-radius:20px;padding:22px;box-shadow:var(--shadow);margin:16px 0;}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;}
+  .stat{background:var(--card);border-radius:18px;padding:18px 14px;text-align:center;box-shadow:var(--shadow);}
+  .stat .num{font-size:30px;font-weight:800;background:linear-gradient(135deg,var(--indigo),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .stat .lbl{font-size:12px;color:var(--muted);margin-top:2px;}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+  .info-grid .it{background:var(--soft);border-radius:12px;padding:10px 12px;}
+  .info-grid .it .k{font-size:11px;color:var(--muted);}
+  .info-grid .it .v{font-weight:700;font-size:15px;}
+  .sec-head{display:flex;align-items:center;justify-content:space-between;margin:24px 4px 8px;color:#fff;}
+  .sec-head h3{margin:0;font-size:18px;}
+  .hist-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);}
+  .hist-item:last-child{border-bottom:none;}
+  .hist-badge{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;}
+  .hist-meta{flex:1;min-width:0;}
+  .hist-meta .t{font-weight:700;}
+  .hist-meta .d{font-size:12px;color:var(--muted);}
+  .pill{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;}
+  .pill.ok{background:#dcfce7;color:#15803d;}
+  .pill.no{background:#fee2e2;color:#b91c1c;}
+  .empty{text-align:center;color:var(--muted);padding:24px 10px;}
+  .blueprint{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;}
+  .bp{background:var(--soft);border-radius:14px;padding:14px 8px;text-align:center;}
+  .bp .n{font-size:22px;font-weight:800;color:var(--indigo2);}
+  .bp .s{font-size:12px;color:var(--muted);}
+
+  /* ===== EXAM ===== */
+  .exam-top{
+    position:sticky;top:0;z-index:15;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
+    box-shadow:0 4px 14px rgba(0,0,0,.08);padding:12px 16px;
   }
-  .q-head{font-weight:600;margin-bottom:10px;}
-  .q-head .num{color:var(--blue2);}
-  .q-head .pts{float:right;font-size:12px;color:#8a93a3;font-weight:400;}
-  .opt{display:block;padding:8px 10px;margin:5px 0;border:1px solid var(--line);
-    border-radius:8px;cursor:pointer;transition:.15s;}
-  .opt:hover{background:#f3f7ff;border-color:var(--blue2);}
-  .opt input{margin-right:9px;}
-  .opt.correct{background:#e7f6ec;border-color:var(--green);}
-  .opt.wrong{background:#fbe9e9;border-color:var(--red);}
-  .submit-btn{
-    display:block;width:100%;margin:30px 0 0;padding:16px;font-size:18px;
-    font-weight:700;color:#fff;background:var(--green);border:none;border-radius:12px;
-    cursor:pointer;box-shadow:0 3px 8px rgba(30,142,62,.3);
+  .exam-top .line1{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .timer{font-weight:800;font-size:18px;display:flex;align-items:center;gap:6px;color:var(--ink);}
+  .timer.low{color:var(--red);animation:pulse 1s infinite;}
+  @keyframes pulse{50%{opacity:.45}}
+  .progress-track{height:8px;background:var(--soft);border-radius:999px;overflow:hidden;margin-top:10px;}
+  .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--indigo),var(--cyan));transition:width .3s;}
+  .qcount{font-size:13px;color:var(--muted);font-weight:600;}
+  .badge{font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;background:linear-gradient(135deg,var(--indigo),var(--violet));color:#fff;}
+
+  .qcard{background:var(--card);border-radius:22px;padding:24px;box-shadow:var(--shadow);margin:18px 0;animation:fade .25s ease;}
+  .qcard .qnum{color:var(--indigo2);font-weight:800;font-size:14px;}
+  .qcard .qtext{font-size:19px;font-weight:700;margin:8px 0 18px;line-height:1.5;}
+  .opt{
+    display:flex;align-items:center;gap:12px;padding:14px 16px;margin:10px 0;border:2px solid var(--line);
+    border-radius:14px;cursor:pointer;transition:.15s;font-size:15px;background:#fff;
   }
-  .submit-btn:hover{filter:brightness(1.05);}
-  .retry-btn{
-    display:inline-block;margin-top:14px;padding:11px 22px;font-size:15px;
-    font-weight:600;color:#fff;background:var(--blue2);border:none;border-radius:9px;cursor:pointer;
+  .opt:hover{border-color:var(--indigo);background:#f5f6ff;}
+  .opt .key{width:30px;height:30px;border-radius:9px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--muted);flex-shrink:0;transition:.15s;}
+  .opt.sel{border-color:var(--indigo);background:#eef0ff;}
+  .opt.sel .key{background:var(--indigo);color:#fff;}
+  .opt.correct{border-color:var(--green);background:#ecfdf5;}
+  .opt.correct .key{background:var(--green);color:#fff;}
+  .opt.wrong{border-color:var(--red);background:#fef2f2;}
+  .opt.wrong .key{background:var(--red);color:#fff;}
+
+  .nav-btns{display:flex;gap:10px;margin:10px 0 4px;}
+  .nav-btns .btn{flex:1;}
+  .palette{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:8px;}
+  .pdot{aspect-ratio:1;border-radius:9px;background:var(--soft);color:var(--muted);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid transparent;transition:.15s;}
+  .pdot.answered{background:var(--indigo);color:#fff;}
+  .pdot.current{border-color:var(--amber);transform:scale(1.08);}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px;}
+  .legend span{display:flex;align-items:center;gap:6px;}
+  .dotc{width:12px;height:12px;border-radius:4px;}
+
+  /* ===== RESULT ===== */
+  .result-hero{text-align:center;padding:14px 0 4px;}
+  .ring{position:relative;width:170px;height:170px;margin:6px auto 10px;}
+  .ring svg{transform:rotate(-90deg);}
+  .ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .ring .val .big{font-size:40px;font-weight:800;}
+  .ring .val .small{font-size:13px;color:var(--muted);}
+  .verdict{font-size:24px;font-weight:800;margin:4px 0;}
+  .verdict.ok{color:var(--green);}
+  .verdict.no{color:var(--red);}
+  .subj-row{display:flex;align-items:center;gap:12px;margin:12px 0;}
+  .subj-row .nm{width:96px;font-size:14px;font-weight:700;flex-shrink:0;}
+  .subj-bar{flex:1;height:12px;background:var(--soft);border-radius:999px;overflow:hidden;}
+  .subj-bar > div{height:100%;border-radius:999px;transition:width .9s ease;}
+  .subj-row .sc{font-size:13px;color:var(--muted);width:54px;text-align:right;flex-shrink:0;}
+  .confetti{position:fixed;top:-10px;width:10px;height:14px;z-index:100;pointer-events:none;border-radius:2px;}
+  @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.9}}
+
+  footer{text-align:center;color:rgba(255,255,255,.5);font-size:12px;padding:10px 0 26px;}
+  .review-q{background:var(--card);border-radius:16px;padding:16px;margin:10px 0;box-shadow:var(--shadow);}
+  .review-q .rt{font-weight:700;margin-bottom:8px;}
+  .review-q .ra{font-size:14px;margin:3px 0;}
+  .tick{color:var(--green);font-weight:700;}
+  .cross{color:var(--red);font-weight:700;}
+  @media(max-width:560px){
+    .stats{grid-template-columns:repeat(3,1fr);}
+    .blueprint{grid-template-columns:repeat(2,1fr);}
+    .palette{grid-template-columns:repeat(10,1fr);}
+    .qcard .qtext{font-size:17px;}
+    .info-grid{grid-template-columns:1fr 1fr;}
   }
-  #result{
-    position:fixed;inset:0;background:rgba(15,25,45,.78);display:none;
-    align-items:center;justify-content:center;padding:18px;z-index:50;
-  }
-  #result .card{
-    background:#fff;border-radius:18px;max-width:440px;width:100%;text-align:center;
-    padding:30px 26px;box-shadow:0 12px 40px rgba(0,0,0,.3);animation:pop .25s ease;
-  }
-  @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
-  #result .emoji{font-size:56px;margin-bottom:6px;}
-  #result h2{margin:6px 0;font-size:24px;}
-  #result .score{font-size:42px;font-weight:800;margin:10px 0;}
-  #result .pass{color:var(--green);}
-  #result .fail{color:var(--red);}
-  .bar{height:14px;background:#e6eaf1;border-radius:8px;overflow:hidden;margin:14px 0;}
-  .bar > div{height:100%;width:0;transition:width .8s ease;}
-  .stat{font-size:14px;color:#566;margin:4px 0;}
-  .breakdown{text-align:left;margin-top:14px;font-size:14px;border-top:1px solid var(--line);padding-top:12px;}
-  .breakdown div{display:flex;justify-content:space-between;padding:3px 0;}
-  footer{text-align:center;padding:18px;color:#8a93a3;font-size:13px;}
-  .warn{color:var(--red);font-size:14px;margin-top:8px;min-height:18px;}
 </style>
 </head>
 <body>
-<header>
-  <h1>Muhammad al-Xorazmiy nomidagi maktab</h1>
-  <p>Farg'ona shahri</p>
-  <p>9-sinf — Imtihonga tayyorgarlik testi</p>
-</header>
 
-<div class="wrap">
-  <div class="info">
-    <strong>Imtihon haqida:</strong>
-    <ul>
-      <li>Jami <b>50 ta savol</b>: Algebra (12), Geometriya (8), Fizika (15), Ingliz tili (15)</li>
-      <li>Har bir savol <b>2 ball</b>. Maksimal ball — <b>100</b>.</li>
-      <li>Imtihondan o'tish uchun kamida <b>60 ball</b> to'plang.</li>
-      <li>Har bir savol uchun bitta to'g'ri javobni belgilang, so'ng pastdagi tugmani bosing.</li>
-    </ul>
-    <div class="name-box">
-      <input id="student" type="text" placeholder="Ism familiyangizni kiriting...">
+<!-- ============ LOGIN / SHAXSIY KABINET ============ -->
+<section id="screen-login" class="screen active">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="logo">🎓</div>
+      <h1>Al-Xorazmiy maktabi</h1>
+      <p class="sub">Farg'ona · 9-sinf imtihon platformasi</p>
+
+      <div class="field">
+        <label>Ism</label>
+        <input id="in-first" type="text" placeholder="Masalan: Ahmadjon" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Familiya</label>
+        <input id="in-last" type="text" placeholder="Masalan: Tursunov" autocomplete="off">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Sinf</label>
+          <select id="in-grade">
+            <option value="9-A">9-A</option>
+            <option value="9-B">9-B</option>
+            <option value="9-V">9-V</option>
+            <option value="9-G">9-G</option>
+            <option value="9-D">9-D</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Maktab / Tuman</label>
+          <input id="in-school" type="text" placeholder="Al-Xorazmiy maktabi" value="Al-Xorazmiy maktabi">
+        </div>
+      </div>
+      <div class="warn" id="login-warn"></div>
+      <button class="btn" style="width:100%" id="btn-enter">Kabinetga kirish →</button>
     </div>
-    <div class="warn" id="warn"></div>
   </div>
+</section>
 
-  <form id="examForm"></form>
-
-  <button class="submit-btn" id="submitBtn">Testni yakunlash va natijani ko'rish</button>
-</div>
-
-<div id="result">
-  <div class="card">
-    <div class="emoji" id="rEmoji">🎓</div>
-    <h2 id="rTitle"></h2>
-    <div class="score" id="rScore"></div>
-    <div class="bar"><div id="rBar"></div></div>
-    <div class="stat" id="rStat"></div>
-    <div class="breakdown" id="rBreak"></div>
-    <button class="retry-btn" onclick="location.reload()">Qaytadan ishlash</button>
+<!-- ============ DASHBOARD / PROFIL ============ -->
+<section id="screen-dashboard" class="screen">
+  <div class="topbar">
+    <div class="brand"><div class="mini">🎓</div> Al-Xorazmiy · 9-sinf</div>
+    <div class="avatar" id="d-avatar" title="Chiqish">AA</div>
   </div>
-</div>
+  <div class="container">
+    <div class="hello">
+      <h2 id="d-greet">Assalomu alaykum!</h2>
+      <p id="d-subtitle">Imtihonga tayyormisiz?</p>
+    </div>
 
-<footer>Al-Xorazmiy maktabi · Farg'ona · 9-sinf imtihon testi</footer>
+    <div class="stats">
+      <div class="stat"><div class="num" id="s-count">0</div><div class="lbl">Topshirilgan</div></div>
+      <div class="stat"><div class="num" id="s-best">0</div><div class="lbl">Eng yuqori ball</div></div>
+      <div class="stat"><div class="num" id="s-avg">0</div><div class="lbl">O'rtacha ball</div></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="avatar" id="p-avatar" style="width:54px;height:54px;font-size:20px;cursor:default;">AA</div>
+        <div>
+          <div style="font-weight:800;font-size:18px;" id="p-name">Ism Familiya</div>
+          <div style="color:var(--muted);font-size:14px;" id="p-meta">9-A · Al-Xorazmiy maktabi</div>
+        </div>
+      </div>
+      <div class="info-grid">
+        <div class="it"><div class="k">Imtihon</div><div class="v">50 ta savol</div></div>
+        <div class="it"><div class="k">Vaqt</div><div class="v">45 daqiqa</div></div>
+        <div class="it"><div class="k">Maksimal ball</div><div class="v">100 ball</div></div>
+        <div class="it"><div class="k">O'tish chegarasi</div><div class="v">60 ball</div></div>
+      </div>
+      <div class="blueprint">
+        <div class="bp"><div class="n">12</div><div class="s">Algebra</div></div>
+        <div class="bp"><div class="n">8</div><div class="s">Geometriya</div></div>
+        <div class="bp"><div class="n">15</div><div class="s">Fizika</div></div>
+        <div class="bp"><div class="n">15</div><div class="s">Ingliz tili</div></div>
+      </div>
+      <button class="btn" style="width:100%;margin-top:18px;" id="btn-start">▶ Imtihonni boshlash</button>
+    </div>
+
+    <div class="sec-head"><h3>📊 Natijalar tarixi</h3></div>
+    <div class="card" id="hist-card">
+      <div class="empty" id="hist-empty">Hozircha topshirilgan imtihonlar yo'q.<br>Birinchi imtihoningizni boshlang!</div>
+      <div id="hist-list"></div>
+    </div>
+    <footer>© Al-Xorazmiy maktabi · Farg'ona · 9-sinf imtihon platformasi</footer>
+  </div>
+</section>
+
+<!-- ============ EXAM ============ -->
+<section id="screen-exam" class="screen">
+  <div class="exam-top">
+    <div class="line1">
+      <span class="badge" id="e-subject">Algebra</span>
+      <span class="qcount" id="e-count">1 / 50</span>
+      <span class="timer" id="e-timer">⏱ 45:00</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="e-progress"></div></div>
+  </div>
+  <div class="container">
+    <div class="qcard" id="e-card"></div>
+    <div class="nav-btns">
+      <button class="btn soft" id="e-prev">← Oldingi</button>
+      <button class="btn" id="e-next">Keyingi →</button>
+    </div>
+    <button class="btn green" style="width:100%;margin-top:8px;" id="e-finish">✓ Imtihonni yakunlash</button>
+
+    <div class="card" style="margin-top:18px;">
+      <div style="font-weight:700;margin-bottom:6px;">Savollar xaritasi</div>
+      <div class="palette" id="e-palette"></div>
+      <div class="legend">
+        <span><i class="dotc" style="background:var(--indigo)"></i> Belgilangan</span>
+        <span><i class="dotc" style="background:var(--soft)"></i> Bo'sh</span>
+        <span><i class="dotc" style="background:#fff;border:2px solid var(--amber)"></i> Joriy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULT ============ -->
+<section id="screen-result" class="screen">
+  <div class="topbar">
+    <div class="brand"><div class="mini">🎓</div> Imtihon natijasi</div>
+    <div class="avatar" id="r-avatar">AA</div>
+  </div>
+  <div class="container">
+    <div class="card">
+      <div class="result-hero">
+        <div class="ring">
+          <svg width="170" height="170">
+            <circle cx="85" cy="85" r="74" stroke="#e2e8f0" stroke-width="14" fill="none"/>
+            <circle id="r-ring" cx="85" cy="85" r="74" stroke="#10b981" stroke-width="14" fill="none"
+              stroke-linecap="round" stroke-dasharray="465" stroke-dashoffset="465"/>
+          </svg>
+          <div class="val"><div class="big" id="r-score">0</div><div class="small">/ 100 ball</div></div>
+        </div>
+        <div class="verdict" id="r-verdict">—</div>
+        <div style="color:var(--muted);font-size:14px;" id="r-detail"></div>
+      </div>
+      <div style="margin-top:20px;">
+        <div style="font-weight:700;margin-bottom:8px;">Fanlar bo'yicha natija</div>
+        <div id="r-subjects"></div>
+      </div>
+      <div class="nav-btns" style="margin-top:20px;">
+        <button class="btn soft" id="r-review">📋 Javoblarni ko'rish</button>
+        <button class="btn" id="r-home">🏠 Kabinetga qaytish</button>
+      </div>
+      <button class="btn green" style="width:100%;margin-top:8px;" id="r-retry">🔄 Qayta topshirish</button>
+    </div>
+    <div id="r-reviewbox" style="display:none;"></div>
+    <footer>© Al-Xorazmiy maktabi · Farg'ona</footer>
+  </div>
+</section>
 
 <script>
-/* Har bir savol: matn (q), variantlar (o), to'g'ri javob indeksi (a), bo'lim (s) */
+/* ====================== SAVOLLAR BAZASI (qiyinlashtirilgan) ====================== */
+const letters = ["A","B","C","D"];
 const questions = [
   /* ---------- ALGEBRA (12) ---------- */
-  {s:"Algebra", q:"x² − 5x + 6 = 0 tenglamaning ildizlari qaysi?", o:["2 va 3","−2 va −3","1 va 6","−1 va −6"], a:0},
-  {s:"Algebra", q:"(a + b)² ifodasi nimaga teng?", o:["a² + b²","a² + 2ab + b²","a² − 2ab + b²","a² − b²"], a:1},
-  {s:"Algebra", q:"3x − 7 = 2x + 5 tenglamani yeching.", o:["x = 12","x = −12","x = 2","x = −2"], a:0},
-  {s:"Algebra", q:"Arifmetik progressiyada a₁ = 3, d = 4. a₅ ni toping.", o:["15","17","19","23"], a:2},
-  {s:"Algebra", q:"√144 + √25 ifodaning qiymati:", o:["7","13","17","169"], a:2},
-  {s:"Algebra", q:"2⁵ · 2³ ko'paytma nechaga teng?", o:["64","128","256","512"], a:2},
-  {s:"Algebra", q:"x² − 9 ifodani ko'paytuvchilarga ajrating.", o:["(x−3)(x+3)","(x−9)(x+1)","(x−3)²","(x+9)(x−1)"], a:0},
-  {s:"Algebra", q:"Kvadrat tenglama diskriminanti formulasi qaysi?", o:["b² + 4ac","b² − 4ac","−b/2a","2a"], a:1},
-  {s:"Algebra", q:"Geometrik progressiyada b₁ = 2, q = 3. b₄ ni toping.", o:["18","24","54","162"], a:2},
-  {s:"Algebra", q:"f(x) = 2x + 1 bo'lsa, f(3) qiymati:", o:["4","5","6","7"], a:3},
-  {s:"Algebra", q:"5x > 20 tengsizlikning yechimi:", o:["x > 4","x < 4","x > 100","x < 100"], a:0},
-  {s:"Algebra", q:"Sistema: x + y = 10, x − y = 4. x ning qiymati:", o:["3","5","6","7"], a:3},
+  {s:"Algebra", q:"2x² − 7x + 3 = 0 tenglamaning ildizlarini toping.", o:["3 va 0,5","−3 va −0,5","3 va 2","1 va 1,5"], a:0},
+  {s:"Algebra", q:"(a³ − b³) / (a − b) ifodani soddalashtiring.", o:["a² − ab + b²","a² + ab + b²","a² + b²","a² + 2ab + b²"], a:1},
+  {s:"Algebra", q:"|2x − 3| = 5 tenglamani yeching.", o:["4 yoki −1","−4 yoki 1","4 yoki 1","−4 yoki −1"], a:0},
+  {s:"Algebra", q:"Arifmetik progressiyada a₁ = 2, d = 3. Dastlabki 20 ta had yig'indisi (S₂₀):", o:["590","610","620","305"], a:1},
+  {s:"Algebra", q:"√50 + √18 − √8 ifodaning qiymati:", o:["4√2","6√2","8√2","6√10"], a:1},
+  {s:"Algebra", q:"(2³)² · 2⁻⁴ ifodaning qiymati:", o:["2","4","8","16"], a:1},
+  {s:"Algebra", q:"x³ − 8 ifodani ko'paytuvchilarga ajrating.", o:["(x−2)(x²+2x+4)","(x−2)(x²−2x+4)","(x−2)³","(x−2)(x²+4)"], a:0},
+  {s:"Algebra", q:"x² − 6x + k = 0 tenglama teng (bir xil) ildizlarga ega bo'lishi uchun k = ?", o:["3","6","9","−9"], a:2},
+  {s:"Algebra", q:"Geometrik progressiyada b₁ = 3, q = 2. Dastlabki 5 ta had yig'indisi (S₅):", o:["48","93","96","31"], a:1},
+  {s:"Algebra", q:"f(x) = 2x − 1 va g(x) = x². g(f(2)) qiymatini toping.", o:["7","9","16","25"], a:1},
+  {s:"Algebra", q:"x² − 5x + 6 < 0 tengsizlikning yechimi:", o:["x < 2 yoki x > 3","2 < x < 3","−3 < x < −2","x < −3"], a:1},
+  {s:"Algebra", q:"Sistemani yeching: 2x + 3y = 12 va x − y = 1. x + y ning qiymati:", o:["4","5","6","7"], a:1},
 
   /* ---------- GEOMETRIYA (8) ---------- */
-  {s:"Geometriya", q:"To'g'ri burchakli uchburchakda katetlar 3 va 4. Gipotenuza uzunligi:", o:["5","6","7","25"], a:0},
-  {s:"Geometriya", q:"Radiusi 5 sm bo'lgan aylananing uzunligi (π≈3,14):", o:["10 sm","15,7 sm","31,4 sm","78,5 sm"], a:2},
-  {s:"Geometriya", q:"Uchburchak ichki burchaklari yig'indisi nechaga teng?", o:["90°","180°","270°","360°"], a:1},
-  {s:"Geometriya", q:"Tomoni 6 sm bo'lgan kvadratning yuzasi:", o:["12 sm²","18 sm²","24 sm²","36 sm²"], a:3},
-  {s:"Geometriya", q:"sin 30° qiymati nechaga teng?", o:["0","0,5","√3/2","1"], a:1},
-  {s:"Geometriya", q:"Radiusi 4 sm bo'lgan doiraning yuzasi (π≈3,14):", o:["12,56 sm²","25,12 sm²","50,24 sm²","100,48 sm²"], a:2},
-  {s:"Geometriya", q:"Tomonlari 8 va 5 bo'lgan to'g'ri to'rtburchak perimetri:", o:["13","26","40","80"], a:1},
-  {s:"Geometriya", q:"cos 60° qiymati nechaga teng?", o:["0","0,5","√3/2","1"], a:1},
+  {s:"Geometriya", q:"To'g'ri burchakli uchburchakda gipotenuza 13, bir kateti 5. Ikkinchi kateti:", o:["8","10","12","11"], a:2},
+  {s:"Geometriya", q:"Radiusi 6 bo'lgan aylananing 60° li sektori yuzasi:", o:["6π","12π","3π","36π"], a:0},
+  {s:"Geometriya", q:"Uchburchak burchaklari 2:3:4 nisbatda. Eng katta burchak nechaga teng?", o:["60°","72°","80°","90°"], a:2},
+  {s:"Geometriya", q:"Tomonlari 13, 14, 15 bo'lgan uchburchakning yuzasi (Geron formulasi):", o:["82","84","86","90"], a:1},
+  {s:"Geometriya", q:"tg 45° + sin 30° ifodaning qiymati:", o:["1","1,5","2","0,5"], a:1},
+  {s:"Geometriya", q:"Asoslari 6 va 10, balandligi 4 bo'lgan trapetsiyaning yuzasi:", o:["28","30","32","40"], a:2},
+  {s:"Geometriya", q:"Ikki o'xshash uchburchak tomonlari nisbati 2:3. Yuzalari nisbati qancha?", o:["2:3","4:9","8:27","6:9"], a:1},
+  {s:"Geometriya", q:"A(1; 2) va B(4; 6) nuqtalar orasidagi masofa:", o:["4","5","6","7"], a:1},
 
   /* ---------- FIZIKA (15) ---------- */
-  {s:"Fizika", q:"To'g'ri chiziqli tekis harakatda tezlik formulasi:", o:["v = s/t","v = t/s","v = s·t","v = s + t"], a:0},
-  {s:"Fizika", q:"Nyutonning ikkinchi qonuni qaysi formula bilan ifodalanadi?", o:["F = m/a","F = ma","F = a/m","F = mv"], a:1},
-  {s:"Fizika", q:"Erkin tushish tezlanishi (g) taxminan nechaga teng?", o:["0,98 m/s²","1,8 m/s²","9,8 m/s²","98 m/s²"], a:2},
-  {s:"Fizika", q:"Kuchning SI dagi o'lchov birligi qaysi?", o:["Joul","Vatt","Paskal","Nyuton"], a:3},
-  {s:"Fizika", q:"Mexanik ish formulasi qaysi?", o:["A = F·s","A = F/s","A = m·v","A = s/t"], a:0},
-  {s:"Fizika", q:"Quvvatning o'lchov birligi:", o:["Joul","Vatt","Nyuton","Amper"], a:1},
-  {s:"Fizika", q:"Om qonuni formulasi qaysi?", o:["I = R/U","I = U·R","I = U/R","I = U + R"], a:2},
-  {s:"Fizika", q:"Zichlik formulasi qaysi?", o:["ρ = m/V","ρ = V/m","ρ = m·V","ρ = m + V"], a:0},
-  {s:"Fizika", q:"Kinetik energiya formulasi qaysi?", o:["E = mgh","E = mv²/2","E = mv","E = ma"], a:1},
-  {s:"Fizika", q:"Bosim formulasi qaysi?", o:["p = S/F","p = F/S","p = F·S","p = F + S"], a:1},
-  {s:"Fizika", q:"Tok kuchining o'lchov birligi:", o:["Volt","Om","Amper","Vatt"], a:2},
-  {s:"Fizika", q:"Massasi 2 kg jismga 3 m/s² tezlanish bering. Unga ta'sir etuvchi kuch:", o:["1,5 N","5 N","6 N","8 N"], a:2},
-  {s:"Fizika", q:"Potensial energiya formulasi qaysi?", o:["E = mgh","E = mv²/2","E = F·s","E = m/V"], a:0},
-  {s:"Fizika", q:"Avtomobil 100 m yo'lni 5 s da bosib o'tdi. Uning tezligi:", o:["0,05 m/s","20 m/s","105 m/s","500 m/s"], a:1},
-  {s:"Fizika", q:"Energiya va ishning o'lchov birligi:", o:["Nyuton","Vatt","Joul","Paskal"], a:2},
+  {s:"Fizika", q:"Jism v₀ = 5 m/s tezlik va a = 2 m/s² tezlanish bilan harakatlanadi. 4 s da bosib o'tgan yo'l:", o:["20 m","28 m","36 m","52 m"], a:2},
+  {s:"Fizika", q:"Massasi 2 kg jismga 10 N kuch ta'sir etadi. Tezlanish nechaga teng?", o:["2 m/s²","5 m/s²","8 m/s²","20 m/s²"], a:1},
+  {s:"Fizika", q:"Jism 45 m balandlikdan erkin tushadi (g = 10 m/s²). Tushish vaqti:", o:["2 s","3 s","4,5 s","9 s"], a:1},
+  {s:"Fizika", q:"Massasi 4 kg, tezligi 3 m/s jismning kinetik energiyasi:", o:["12 J","18 J","36 J","6 J"], a:1},
+  {s:"Fizika", q:"F = 20 N kuch jismni harakat yo'nalishiga 60° burchak ostida 5 m ga ko'chirdi. Bajarilgan ish:", o:["100 J","50 J","20 J","10 J"], a:1},
+  {s:"Fizika", q:"30 sekundda 600 J ish bajarildi. Quvvat nechaga teng?", o:["18 W","20 W","30 W","600 W"], a:1},
+  {s:"Fizika", q:"Om qonuni bo'yicha U = 12 V, R = 4 Ω. Tok kuchi (I):", o:["2 A","3 A","4 A","48 A"], a:1},
+  {s:"Fizika", q:"3 Ω va 6 Ω qarshiliklar parallel ulangan. Umumiy qarshilik:", o:["9 Ω","4,5 Ω","2 Ω","18 Ω"], a:2},
+  {s:"Fizika", q:"Massasi 200 g, hajmi 25 sm³ jismning zichligi:", o:["4 g/sm³","8 g/sm³","5 g/sm³","0,125 g/sm³"], a:1},
+  {s:"Fizika", q:"Suyuqlik (suv, ρ=1000 kg/m³) ichida 2 m chuqurlikdagi bosim (g=10):", o:["2 kPa","20 kPa","200 kPa","2000 kPa"], a:1},
+  {s:"Fizika", q:"Massasi 2 kg, tezligi 10 m/s jismning impulsi:", o:["12 kg·m/s","20 kg·m/s","100 kg·m/s","5 kg·m/s"], a:1},
+  {s:"Fizika", q:"Massasi 5 kg jismning og'irligi (g = 10 m/s²):", o:["5 N","15 N","50 N","0,5 N"], a:2},
+  {s:"Fizika", q:"Avtomobil 60 km yo'lni 60 km/soat, keyingi 60 km ni 30 km/soat bilan bosdi. O'rtacha tezlik:", o:["45 km/soat","40 km/soat","50 km/soat","30 km/soat"], a:1},
+  {s:"Fizika", q:"2 kg suvni 10°C ga isitish uchun zarur issiqlik (c = 4200 J/kg·°C):", o:["42 kJ","84 kJ","8,4 kJ","420 kJ"], a:1},
+  {s:"Fizika", q:"U = 220 V, I = 2 A bo'lsa, elektr quvvati:", o:["110 W","220 W","440 W","880 W"], a:2},
 
   /* ---------- INGLIZ TILI (15) ---------- */
-  {s:"Ingliz tili", q:"Choose the correct form: \"She ___ to school every day.\"", o:["go","goes","going","gone"], a:1},
-  {s:"Ingliz tili", q:"What is the plural form of \"child\"?", o:["childs","childes","children","childrens"], a:2},
-  {s:"Ingliz tili", q:"Complete: \"I have lived here ___ 2010.\"", o:["since","for","from","ago"], a:0},
-  {s:"Ingliz tili", q:"What is the past tense of \"go\"?", o:["goed","gone","went","going"], a:2},
-  {s:"Ingliz tili", q:"Choose the correct article: \"___ apple a day keeps the doctor away.\"", o:["A","An","The","—"], a:1},
-  {s:"Ingliz tili", q:"Complete: \"They ___ playing football now.\"", o:["is","am","are","be"], a:2},
-  {s:"Ingliz tili", q:"What is the comparative form of \"good\"?", o:["gooder","more good","better","best"], a:2},
-  {s:"Ingliz tili", q:"Complete: \"If it rains, I ___ stay at home.\"", o:["will","would","am","was"], a:0},
-  {s:"Ingliz tili", q:"What is the opposite of \"happy\"?", o:["glad","sad","big","tall"], a:1},
-  {s:"Ingliz tili", q:"Complete: \"He has ___ his homework.\"", o:["do","did","done","doing"], a:2},
-  {s:"Ingliz tili", q:"Choose the correct: \"There ___ many books on the table.\"", o:["is","are","am","was"], a:1},
-  {s:"Ingliz tili", q:"Complete: \"I ___ never been to London.\"", o:["has","have","am","was"], a:1},
-  {s:"Ingliz tili", q:"Choose the question word: \"___ do you live?\" — In Fergana.", o:["What","Who","Where","When"], a:2},
-  {s:"Ingliz tili", q:"Choose the correct preposition: \"She is good ___ English.\"", o:["at","in","on","of"], a:0},
-  {s:"Ingliz tili", q:"Complete: \"My brother is ___ than me.\"", o:["tall","taller","tallest","more tall"], a:1}
+  {s:"Ingliz tili", q:"Conditional (Type 2): If I ___ rich, I would travel the world.", o:["am","was","were","will be"], a:2},
+  {s:"Ingliz tili", q:"Reported speech: He said that he ___ tired.", o:["is","was","has","were"], a:1},
+  {s:"Ingliz tili", q:"Passive voice: The letter ___ yesterday.", o:["was wrote","was written","is written","wrote"], a:1},
+  {s:"Ingliz tili", q:"Present Perfect Continuous: I ___ for two hours.", o:["wait","am waiting","have been waiting","waited"], a:2},
+  {s:"Ingliz tili", q:"What does the phrasal verb \"give up\" mean?", o:["to continue","to stop trying / quit","to start","to win"], a:1},
+  {s:"Ingliz tili", q:"Choose the correct verb: Neither of them ___ at home.", o:["is","are","were","have"], a:0},
+  {s:"Ingliz tili", q:"Relative pronoun: The woman ___ bag was stolen called the police.", o:["who","which","whose","whom"], a:2},
+  {s:"Ingliz tili", q:"Gerund form: I enjoy ___ books in the evening.", o:["read","to read","reading","reads"], a:2},
+  {s:"Ingliz tili", q:"Modal of prohibition: You ___ smoke here, it is forbidden.", o:["mustn't","don't have to","needn't","shouldn't"], a:0},
+  {s:"Ingliz tili", q:"Word formation: the noun form of the verb \"decide\" is ___.", o:["decision","decisive","deciding","decided"], a:0},
+  {s:"Ingliz tili", q:"Tag question: She is a teacher, ___?", o:["is she","isn't she","doesn't she","wasn't she"], a:1},
+  {s:"Ingliz tili", q:"Quantifier: How ___ money do you have?", o:["many","much","more","few"], a:1},
+  {s:"Ingliz tili", q:"Past Perfect: After he ___ his work, he went home.", o:["finish","finished","had finished","has finished"], a:2},
+  {s:"Ingliz tili", q:"Idiom: \"It's raining cats and dogs\" means it is raining ___.", o:["lightly","very heavily","a little","not at all"], a:1},
+  {s:"Ingliz tili", q:"Superlative: This is the ___ film I have ever seen.", o:["interesting","more interesting","most interesting","interestingest"], a:2}
 ];
 
-const PASS = 60;            // o'tish uchun kerakli ball
-const PTS_PER = 2;          // har bir savol balli
-const letters = ["A","B","C","D"];
-const form = document.getElementById("examForm");
+const PASS = 60, PTS = 2, TOTAL = questions.length * PTS, DURATION = 45*60;
 
-/* Savollarni chizish */
-let currentSection = "";
-questions.forEach((item, i) => {
-  if (item.s !== currentSection) {
-    currentSection = item.s;
-    const count = questions.filter(x => x.s === item.s).length;
-    const st = document.createElement("div");
-    st.className = "section-title";
-    st.innerHTML = `<span style="font-weight:700;font-size:18px">${item.s}</span><span>${count} ta savol · ${count*PTS_PER} ball</span>`;
-    form.appendChild(st);
-  }
-  const div = document.createElement("div");
-  div.className = "q";
-  div.id = "q" + i;
-  let opts = "";
-  item.o.forEach((opt, j) => {
-    opts += `<label class="opt"><input type="radio" name="q${i}" value="${j}"><b>${letters[j]})</b> ${opt}</label>`;
-  });
-  div.innerHTML = `<div class="q-head"><span class="num">${i+1}-savol.</span> <span class="pts">${PTS_PER} ball</span><br>${item.q}</div>${opts}`;
-  form.appendChild(div);
+/* ====================== HOLAT ====================== */
+let user = null;
+let answers = new Array(questions.length).fill(null);
+let current = 0;
+let timeLeft = DURATION;
+let timerId = null;
+let lastResult = null;
+
+const $ = id => document.getElementById(id);
+const screens = { login:$("screen-login"), dashboard:$("screen-dashboard"), exam:$("screen-exam"), result:$("screen-result") };
+function show(name){ for(const k in screens) screens[k].classList.toggle("active", k===name); window.scrollTo(0,0); }
+function initials(f,l){ return ((f||" ")[0] + (l||" ")[0]).toUpperCase(); }
+function loadUser(){ try{ return JSON.parse(localStorage.getItem("alx_user")); }catch(e){ return null; } }
+function saveUser(u){ localStorage.setItem("alx_user", JSON.stringify(u)); }
+function loadHist(){ try{ return JSON.parse(localStorage.getItem("alx_hist_"+user.id)) || []; }catch(e){ return []; } }
+function saveHist(h){ localStorage.setItem("alx_hist_"+user.id, JSON.stringify(h)); }
+
+/* ====================== LOGIN ====================== */
+$("btn-enter").addEventListener("click", () => {
+  const f = $("in-first").value.trim();
+  const l = $("in-last").value.trim();
+  if(!f || !l){ $("login-warn").textContent = "Iltimos, ism va familiyangizni to'liq kiriting."; return; }
+  user = { id:(f+"_"+l).toLowerCase().replace(/\s+/g,"_"), first:f, last:l, grade:$("in-grade").value, school:$("in-school").value.trim()||"Al-Xorazmiy maktabi" };
+  saveUser(user);
+  enterDashboard();
 });
 
-/* Natijani hisoblash */
-document.getElementById("submitBtn").addEventListener("click", () => {
-  const name = document.getElementById("student").value.trim();
-  if (!name) {
-    document.getElementById("warn").textContent = "Iltimos, avval ism familiyangizni kiriting.";
-    document.getElementById("student").focus();
-    window.scrollTo({top:0, behavior:"smooth"});
-    return;
-  }
+function enterDashboard(){
+  const ini = initials(user.first, user.last);
+  $("d-avatar").textContent = ini; $("p-avatar").textContent = ini; $("r-avatar").textContent = ini;
+  $("d-greet").textContent = "Assalomu alaykum, " + user.first + "!";
+  $("p-name").textContent = user.first + " " + user.last;
+  $("p-meta").textContent = user.grade + " · " + user.school;
+  renderHistory();
+  show("dashboard");
+}
 
-  let score = 0, answered = 0;
+function renderHistory(){
+  const h = loadHist();
+  if(h.length === 0){
+    $("s-count").textContent = "0"; $("s-best").textContent = "0"; $("s-avg").textContent = "0";
+    $("hist-empty").style.display = "block"; $("hist-list").innerHTML = ""; return;
+  }
+  $("hist-empty").style.display = "none";
+  const best = Math.max(...h.map(x=>x.score));
+  const avg = Math.round(h.reduce((s,x)=>s+x.score,0)/h.length);
+  $("s-count").textContent = h.length; $("s-best").textContent = best; $("s-avg").textContent = avg;
+  $("hist-list").innerHTML = h.slice().reverse().map(x=>{
+    const col = x.passed ? "linear-gradient(135deg,#10b981,#059669)" : "linear-gradient(135deg,#ef4444,#dc2626)";
+    return `<div class="hist-item">
+      <div class="hist-badge" style="background:${col}">${x.score}</div>
+      <div class="hist-meta"><div class="t">${x.score} / 100 ball · ${x.percent}%</div><div class="d">${x.date}</div></div>
+      <span class="pill ${x.passed?'ok':'no'}">${x.passed?"O'tdi":"O'tmadi"}</span>
+    </div>`;
+  }).join("");
+}
+
+$("d-avatar").addEventListener("click", () => {
+  if(confirm("Kabinetdan chiqasizmi? (Natijalaringiz saqlanib qoladi)")){
+    show("login");
+  }
+});
+
+/* ====================== EXAM ====================== */
+$("btn-start").addEventListener("click", startExam);
+$("r-retry").addEventListener("click", startExam);
+
+function startExam(){
+  answers = new Array(questions.length).fill(null);
+  current = 0; timeLeft = DURATION;
+  buildPalette();
+  renderQuestion();
+  show("exam");
+  clearInterval(timerId);
+  timerId = setInterval(tick, 1000);
+  updateTimer();
+}
+
+function tick(){
+  timeLeft--;
+  updateTimer();
+  if(timeLeft <= 0){ clearInterval(timerId); finishExam(true); }
+}
+function updateTimer(){
+  const m = String(Math.floor(timeLeft/60)).padStart(2,"0");
+  const s = String(timeLeft%60).padStart(2,"0");
+  const el = $("e-timer");
+  el.textContent = "⏱ " + m + ":" + s;
+  el.classList.toggle("low", timeLeft <= 60);
+}
+
+function buildPalette(){
+  const p = $("e-palette");
+  p.innerHTML = questions.map((_,i)=>`<div class="pdot" data-i="${i}">${i+1}</div>`).join("");
+  p.querySelectorAll(".pdot").forEach(d=>d.addEventListener("click",()=>{ current = +d.dataset.i; renderQuestion(); }));
+}
+function refreshPalette(){
+  $("e-palette").querySelectorAll(".pdot").forEach((d,i)=>{
+    d.classList.toggle("answered", answers[i]!==null);
+    d.classList.toggle("current", i===current);
+  });
+}
+
+function renderQuestion(){
+  const item = questions[current];
+  $("e-subject").textContent = item.s;
+  $("e-count").textContent = (current+1) + " / " + questions.length;
+  $("e-progress").style.width = ((current+1)/questions.length*100) + "%";
+  let opts = item.o.map((o,j)=>{
+    const sel = answers[current]===j ? " sel" : "";
+    return `<div class="opt${sel}" data-j="${j}"><div class="key">${letters[j]}</div><div>${o}</div></div>`;
+  }).join("");
+  $("e-card").innerHTML = `<div class="qnum">${current+1}-savol · ${item.s} · ${PTS} ball</div>
+    <div class="qtext">${item.q}</div>${opts}`;
+  $("e-card").querySelectorAll(".opt").forEach(o=>o.addEventListener("click",()=>{
+    answers[current] = +o.dataset.j;
+    renderQuestion();
+    setTimeout(()=>{ if(current < questions.length-1){ current++; renderQuestion(); } }, 180);
+  }));
+  $("e-prev").disabled = current===0;
+  $("e-next").disabled = current===questions.length-1;
+  refreshPalette();
+}
+$("e-prev").addEventListener("click",()=>{ if(current>0){current--;renderQuestion();} });
+$("e-next").addEventListener("click",()=>{ if(current<questions.length-1){current++;renderQuestion();} });
+
+$("e-finish").addEventListener("click",()=>{
+  const left = answers.filter(a=>a===null).length;
+  const msg = left>0 ? (left + " ta savol javobsiz qoldi. Baribir yakunlaysizmi?") : "Imtihonni yakunlaysizmi?";
+  if(confirm(msg)) finishExam(false);
+});
+
+/* ====================== RESULT ====================== */
+function finishExam(timeUp){
+  clearInterval(timerId);
+  let score = 0;
   const sec = {};
-  questions.forEach((item, i) => {
-    sec[item.s] = sec[item.s] || {correct:0, total:0};
+  questions.forEach((item,i)=>{
+    sec[item.s] = sec[item.s] || {correct:0,total:0};
     sec[item.s].total++;
-    const chosen = form.querySelector(`input[name="q${i}"]:checked`);
-    const labels = document.querySelectorAll(`#q${i} .opt`);
-    labels.forEach(l => l.classList.remove("correct","wrong"));
-    if (chosen) {
-      answered++;
-      const val = parseInt(chosen.value, 10);
-      if (val === item.a) {
-        score += PTS_PER;
-        sec[item.s].correct++;
-        labels[val].classList.add("correct");
-      } else {
-        labels[val].classList.add("wrong");
-        labels[item.a].classList.add("correct");
-      }
-    } else {
-      labels[item.a].classList.add("correct");
-    }
+    if(answers[i]===item.a){ score += PTS; sec[item.s].correct++; }
   });
-
+  const percent = Math.round(score/TOTAL*100);
   const passed = score >= PASS;
-  const pct = Math.round(score / (questions.length*PTS_PER) * 100);
+  const now = new Date();
+  const date = now.toLocaleDateString("uz") + " " + now.toLocaleTimeString("uz",{hour:"2-digit",minute:"2-digit"});
 
-  document.getElementById("rEmoji").textContent = passed ? "🎉" : "📚";
-  document.getElementById("rTitle").innerHTML = passed
-    ? `<span class="pass">Tabriklaymiz, ${name}!<br>Siz imtihondan o'tdingiz!</span>`
-    : `<span class="fail">${name}, afsuski o'ta olmadingiz.</span>`;
-  document.getElementById("rScore").innerHTML = `<span class="${passed?'pass':'fail'}">${score} / 100 ball</span>`;
+  lastResult = {score, percent, passed, sec, answers:answers.slice(), date};
+  const h = loadHist(); h.push({score, percent, passed, date}); saveHist(h);
 
-  const bar = document.getElementById("rBar");
-  bar.style.background = passed ? "var(--green)" : "var(--red)";
-  setTimeout(() => { bar.style.width = pct + "%"; }, 60);
+  renderResult(timeUp);
+  show("result");
+}
 
-  document.getElementById("rStat").textContent =
-    `To'g'ri javoblar: ${score/PTS_PER} / ${questions.length} · Foiz: ${pct}% · O'tish chegarasi: ${PASS} ball`;
+function renderResult(timeUp){
+  const r = lastResult;
+  $("r-score").textContent = r.score;
+  const ring = $("r-ring");
+  const C = 465;
+  ring.style.stroke = r.passed ? "#10b981" : "#ef4444";
+  ring.style.strokeDashoffset = C;
+  setTimeout(()=>{ ring.style.transition="stroke-dashoffset 1.1s ease"; ring.style.strokeDashoffset = C*(1 - r.percent/100); }, 80);
 
-  let bd = "";
-  for (const k in sec) {
-    bd += `<div><span>${k}</span><span>${sec[k].correct}/${sec[k].total} (${sec[k].correct*PTS_PER} ball)</span></div>`;
-  }
-  document.getElementById("rBreak").innerHTML = bd;
+  const v = $("r-verdict");
+  v.className = "verdict " + (r.passed ? "ok":"no");
+  v.textContent = r.passed ? "🎉 Tabriklaymiz! Siz imtihondan o'tdingiz!" : "📚 Afsuski, o'ta olmadingiz";
+  $("r-detail").innerHTML = `${user.first} ${user.last} · To'g'ri javoblar: <b>${r.score/PTS}/${questions.length}</b> · ${r.percent}%`
+    + (timeUp ? "<br><span style='color:var(--red)'>⏱ Vaqt tugadi — imtihon avtomatik yakunlandi.</span>" : "")
+    + `<br>O'tish chegarasi: ${PASS} ball`;
 
-  document.getElementById("result").style.display = "flex";
+  const colors = {"Algebra":"#6366f1","Geometriya":"#06b6d4","Fizika":"#f59e0b","Ingliz tili":"#8b5cf6"};
+  $("r-subjects").innerHTML = Object.keys(r.sec).map(k=>{
+    const s = r.sec[k]; const pc = Math.round(s.correct/s.total*100);
+    return `<div class="subj-row"><div class="nm">${k}</div>
+      <div class="subj-bar"><div style="width:0;background:${colors[k]}" data-w="${pc}"></div></div>
+      <div class="sc">${s.correct}/${s.total}</div></div>`;
+  }).join("");
+  setTimeout(()=>{ document.querySelectorAll("#r-subjects .subj-bar > div").forEach(b=>b.style.width=b.dataset.w+"%"); }, 120);
+
+  $("r-reviewbox").style.display = "none";
+  $("r-reviewbox").innerHTML = "";
+  if(r.passed) confetti();
+}
+
+$("r-home").addEventListener("click",()=>{ renderHistory(); show("dashboard"); });
+
+$("r-review").addEventListener("click",()=>{
+  const box = $("r-reviewbox");
+  if(box.style.display === "block"){ box.style.display="none"; return; }
+  box.style.display = "block";
+  box.innerHTML = questions.map((item,i)=>{
+    const ua = lastResult.answers[i];
+    const correct = ua===item.a;
+    const userTxt = ua===null ? "<i>javob berilmagan</i>" : (letters[ua]+") "+item.o[ua]);
+    return `<div class="review-q">
+      <div class="rt">${i+1}. ${item.q}</div>
+      <div class="ra">Sizning javobingiz: <span class="${correct?'tick':'cross'}">${userTxt} ${correct?'✓':'✗'}</span></div>
+      ${correct ? "" : `<div class="ra">To'g'ri javob: <span class="tick">${letters[item.a]}) ${item.o[item.a]} ✓</span></div>`}
+    </div>`;
+  }).join("");
+  box.scrollIntoView({behavior:"smooth"});
 });
+
+function confetti(){
+  const cols = ["#6366f1","#06b6d4","#f59e0b","#10b981","#ef4444","#8b5cf6"];
+  for(let i=0;i<80;i++){
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random()*100 + "vw";
+    c.style.background = cols[Math.floor(Math.random()*cols.length)];
+    c.style.animation = "fall " + (2+Math.random()*2) + "s linear " + (Math.random()*0.6) + "s forwards";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 5000);
+  }
+}
+
+/* ====================== ISHGA TUSHIRISH ====================== */
+(function init(){
+  const u = loadUser();
+  if(u){
+    user = u;
+    $("in-first").value = u.first; $("in-last").value = u.last;
+    $("in-school").value = u.school; $("in-grade").value = u.grade;
+  }
+})();
 </script>
 </body>
 </html>
