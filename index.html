@@ -177,6 +177,21 @@
   @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.9}}
 
   footer{text-align:center;color:rgba(255,255,255,.5);font-size:12px;padding:10px 0 26px;}
+  .source-note{color:rgba(255,255,255,.55);font-size:12px;text-align:center;line-height:1.6;margin:14px 8px 0;}
+  .rules{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:12px 16px;margin-top:14px;}
+  .rules-title{font-weight:800;color:#c2410c;font-size:14px;margin-bottom:4px;}
+  .rules ul{margin:4px 0 0;padding-left:20px;font-size:13.5px;color:#7c2d12;}
+  .rules li{margin:3px 0;}
+  /* Ogohlantirish oynasi */
+  #warn-overlay{position:fixed;inset:0;background:rgba(120,20,20,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px;z-index:200;}
+  .warn-card{background:#fff;border-radius:22px;max-width:400px;width:100%;text-align:center;padding:30px 26px;box-shadow:0 20px 50px rgba(0,0,0,.4);animation:pop .25s ease;border-top:6px solid var(--red);}
+  .warn-emoji{font-size:52px;}
+  .warn-count{font-size:30px;font-weight:800;color:var(--red);margin:4px 0;}
+  .warn-card h3{margin:4px 0;font-size:21px;color:var(--red);}
+  .warn-card p{color:var(--ink);font-size:15px;margin:8px 0 18px;line-height:1.6;}
+  /* Imtihon paytida matn belgilashni cheklash */
+  #screen-exam{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;}
+  #screen-exam input,#screen-exam textarea{user-select:auto;}
   .review-q{background:var(--card);border-radius:16px;padding:16px;margin:10px 0;box-shadow:var(--shadow);}
   .review-q .rt{font-weight:700;margin-bottom:8px;}
   .review-q .ra{font-size:14px;margin:3px 0;}
@@ -259,7 +274,7 @@
       </div>
       <div class="info-grid">
         <div class="it"><div class="k">Imtihon</div><div class="v">50 ta savol</div></div>
-        <div class="it"><div class="k">Vaqt</div><div class="v">45 daqiqa</div></div>
+        <div class="it"><div class="k">Vaqt</div><div class="v">2 soat 30 daqiqa</div></div>
         <div class="it"><div class="k">Maksimal ball</div><div class="v">100 ball</div></div>
         <div class="it"><div class="k">O'tish chegarasi</div><div class="v">60 ball</div></div>
       </div>
@@ -269,6 +284,15 @@
         <div class="bp"><div class="n">15</div><div class="s">Fizika</div></div>
         <div class="bp"><div class="n">15</div><div class="s">Ingliz tili</div></div>
       </div>
+      <div class="rules">
+        <div class="rules-title">⚠️ Imtihon qoidalari (xavfsizlik)</div>
+        <ul>
+          <li>Imtihon davomida boshqa oyna yoki ilovaga o'tish <b>taqiqlanadi</b>.</li>
+          <li>Har bir chiqishda ogohlantirish beriladi — <b>3 marta</b> chiqsangiz imtihon avtomatik yakunlanadi.</li>
+          <li>Savollarni nusxalash, o'ng tugma va matn belgilash o'chirilgan.</li>
+          <li>Vaqt tugaganda imtihon o'z-o'zidan yakunlanadi.</li>
+        </ul>
+      </div>
       <button class="btn" style="width:100%;margin-top:18px;" id="btn-start">▶ Imtihonni boshlash</button>
     </div>
 
@@ -276,6 +300,10 @@
     <div class="card" id="hist-card">
       <div class="empty" id="hist-empty">Hozircha topshirilgan imtihonlar yo'q.<br>Birinchi imtihoningizni boshlang!</div>
       <div id="hist-list"></div>
+    </div>
+    <div class="source-note">
+      Savollar ommaviy <b>Al-Xorazmiy / Prezident maktablari tayyorlov testlari</b> uslubida tuzilgan
+      (manbalar: Al-Xorazmiy olimpiadasi testlari, Prezident maktabi namuna testlari — scribd.com, gauthmath.com, idum.uz).
     </div>
     <footer>© Al-Xorazmiy maktabi · Farg'ona · 9-sinf imtihon platformasi</footer>
   </div>
@@ -287,7 +315,7 @@
     <div class="line1">
       <span class="badge" id="e-subject">Algebra</span>
       <span class="qcount" id="e-count">1 / 50</span>
-      <span class="timer" id="e-timer">⏱ 45:00</span>
+      <span class="timer" id="e-timer">⏱ 2:30:00</span>
     </div>
     <div class="progress-track"><div class="progress-fill" id="e-progress"></div></div>
   </div>
@@ -346,33 +374,44 @@
   </div>
 </section>
 
+<!-- ============ OGOHLANTIRISH OYNASI ============ -->
+<div id="warn-overlay">
+  <div class="warn-card">
+    <div class="warn-emoji">⚠️</div>
+    <div class="warn-count" id="w-count">1 / 3</div>
+    <h3>Ogohlantirish!</h3>
+    <p id="w-msg"></p>
+    <button class="btn red" id="w-ok">Tushundim, davom etaman</button>
+  </div>
+</div>
+
 <script>
 /* ====================== SAVOLLAR BAZASI (qiyinlashtirilgan) ====================== */
 const letters = ["A","B","C","D"];
 const questions = [
-  /* ---------- ALGEBRA (12) ---------- */
-  {s:"Algebra", q:"2x² − 7x + 3 = 0 tenglamaning ildizlarini toping.", o:["3 va 0,5","−3 va −0,5","3 va 2","1 va 1,5"], a:0},
-  {s:"Algebra", q:"(a³ − b³) / (a − b) ifodani soddalashtiring.", o:["a² − ab + b²","a² + ab + b²","a² + b²","a² + 2ab + b²"], a:1},
-  {s:"Algebra", q:"|2x − 3| = 5 tenglamani yeching.", o:["4 yoki −1","−4 yoki 1","4 yoki 1","−4 yoki −1"], a:0},
-  {s:"Algebra", q:"Arifmetik progressiyada a₁ = 2, d = 3. Dastlabki 20 ta had yig'indisi (S₂₀):", o:["590","610","620","305"], a:1},
-  {s:"Algebra", q:"√50 + √18 − √8 ifodaning qiymati:", o:["4√2","6√2","8√2","6√10"], a:1},
-  {s:"Algebra", q:"(2³)² · 2⁻⁴ ifodaning qiymati:", o:["2","4","8","16"], a:1},
-  {s:"Algebra", q:"x³ − 8 ifodani ko'paytuvchilarga ajrating.", o:["(x−2)(x²+2x+4)","(x−2)(x²−2x+4)","(x−2)³","(x−2)(x²+4)"], a:0},
-  {s:"Algebra", q:"x² − 6x + k = 0 tenglama teng (bir xil) ildizlarga ega bo'lishi uchun k = ?", o:["3","6","9","−9"], a:2},
-  {s:"Algebra", q:"Geometrik progressiyada b₁ = 3, q = 2. Dastlabki 5 ta had yig'indisi (S₅):", o:["48","93","96","31"], a:1},
-  {s:"Algebra", q:"f(x) = 2x − 1 va g(x) = x². g(f(2)) qiymatini toping.", o:["7","9","16","25"], a:1},
-  {s:"Algebra", q:"x² − 5x + 6 < 0 tengsizlikning yechimi:", o:["x < 2 yoki x > 3","2 < x < 3","−3 < x < −2","x < −3"], a:1},
-  {s:"Algebra", q:"Sistemani yeching: 2x + 3y = 12 va x − y = 1. x + y ning qiymati:", o:["4","5","6","7"], a:1},
+  /* ---------- ALGEBRA / MATEMATIKA (12) — Al-Xorazmiy/Prezident maktabi tayyorlov uslubida ---------- */
+  {s:"Algebra", q:"5x − 7 = 18 bo'lsa, x ning qiymatini toping.", o:["4","5","6","7"], a:1},
+  {s:"Algebra", q:"Yahyoning pianino darsi soat 3:55 da boshlanib, 4:45 da tugadi. Dars necha daqiqa davom etdi?", o:["45 daqiqa","50 daqiqa","55 daqiqa","90 daqiqa"], a:1},
+  {s:"Algebra", q:"Ikki xonali sonning raqamlari yig'indisi 12. O'nlar xonasidagi raqam birlar xonasidagidan 2 ta ortiq. Bu son nechaga teng?", o:["57","75","84","93"], a:1},
+  {s:"Algebra", q:"Mahsulot narxi 40 000 so'm edi. U 15% ga arzonlashtirildi. Yangi narxi qancha?", o:["34 000 so'm","36 000 so'm","25 000 so'm","6 000 so'm"], a:0},
+  {s:"Algebra", q:"3(x − 2) = 2x + 5 tenglamani yeching.", o:["9","11","13","1"], a:1},
+  {s:"Algebra", q:"2, 5, 8, 11, ... ketma-ketlikning 10-hadini toping.", o:["27","29","30","32"], a:1},
+  {s:"Algebra", q:"Bir sonning 30% i 24 ga teng. Bu son nechaga teng?", o:["72","80","90","8"], a:1},
+  {s:"Algebra", q:"Avtomobil 180 km yo'lni 2,5 soatda bosib o'tdi. Uning o'rtacha tezligi qancha?", o:["60 km/soat","72 km/soat","75 km/soat","90 km/soat"], a:1},
+  {s:"Algebra", q:"1500 so'm 2:3 nisbatda ikki bolaga bo'lib berildi. Katta ulush qancha bo'ladi?", o:["600 so'm","750 so'm","900 so'm","1000 so'm"], a:2},
+  {s:"Algebra", q:"x² − 7x + 12 = 0 tenglamaning ildizlarini toping.", o:["3 va 4","−3 va −4","2 va 6","1 va 12"], a:0},
+  {s:"Algebra", q:"Otaning yoshi o'g'lining yoshidan 4 marta katta. Ularning yoshlari yig'indisi 50 ga teng. Otaning yoshi nechada?", o:["30","36","40","45"], a:2},
+  {s:"Algebra", q:"2/3 + 1/6 ni hisoblang.", o:["3/9","5/6","1/2","2/3"], a:1},
 
   /* ---------- GEOMETRIYA (8) ---------- */
-  {s:"Geometriya", q:"To'g'ri burchakli uchburchakda gipotenuza 13, bir kateti 5. Ikkinchi kateti:", o:["8","10","12","11"], a:2},
-  {s:"Geometriya", q:"Radiusi 6 bo'lgan aylananing 60° li sektori yuzasi:", o:["6π","12π","3π","36π"], a:0},
-  {s:"Geometriya", q:"Uchburchak burchaklari 2:3:4 nisbatda. Eng katta burchak nechaga teng?", o:["60°","72°","80°","90°"], a:2},
-  {s:"Geometriya", q:"Tomonlari 13, 14, 15 bo'lgan uchburchakning yuzasi (Geron formulasi):", o:["82","84","86","90"], a:1},
-  {s:"Geometriya", q:"tg 45° + sin 30° ifodaning qiymati:", o:["1","1,5","2","0,5"], a:1},
-  {s:"Geometriya", q:"Asoslari 6 va 10, balandligi 4 bo'lgan trapetsiyaning yuzasi:", o:["28","30","32","40"], a:2},
-  {s:"Geometriya", q:"Ikki o'xshash uchburchak tomonlari nisbati 2:3. Yuzalari nisbati qancha?", o:["2:3","4:9","8:27","6:9"], a:1},
-  {s:"Geometriya", q:"A(1; 2) va B(4; 6) nuqtalar orasidagi masofa:", o:["4","5","6","7"], a:1},
+  {s:"Geometriya", q:"To'g'ri burchakli uchburchakning katetlari 6 va 8 ga teng. Gipotenuzasi nechaga teng?", o:["9","10","12","14"], a:1},
+  {s:"Geometriya", q:"Kvadratning perimetri 36 sm. Uning yuzasini toping.", o:["72 sm²","81 sm²","84 sm²","90 sm²"], a:1},
+  {s:"Geometriya", q:"Uchburchakning bir burchagi 90°, ikkinchisi 35°. Uchinchi burchak nechaga teng?", o:["45°","55°","65°","75°"], a:1},
+  {s:"Geometriya", q:"Radiusi 7 sm bo'lgan aylananing uzunligini toping (π ≈ 22/7).", o:["22 sm","44 sm","49 sm","154 sm"], a:1},
+  {s:"Geometriya", q:"To'g'ri to'rtburchakning tomonlari 12 va 5 sm. Diagonali nechaga teng?", o:["13 sm","15 sm","17 sm","7 sm"], a:0},
+  {s:"Geometriya", q:"Radiusi 10 sm bo'lgan doiraning yuzasini toping (π ≈ 3,14).", o:["31,4 sm²","100 sm²","314 sm²","628 sm²"], a:2},
+  {s:"Geometriya", q:"Tomoni 10 sm bo'lgan teng tomonli uchburchakning perimetri:", o:["20 sm","30 sm","40 sm","100 sm"], a:1},
+  {s:"Geometriya", q:"Qirrasi 4 sm bo'lgan kubning hajmini toping.", o:["16 sm³","48 sm³","64 sm³","96 sm³"], a:2},
 
   /* ---------- FIZIKA (15) ---------- */
   {s:"Fizika", q:"Jism v₀ = 5 m/s tezlik va a = 2 m/s² tezlanish bilan harakatlanadi. 4 s da bosib o'tgan yo'l:", o:["20 m","28 m","36 m","52 m"], a:2},
@@ -409,7 +448,8 @@ const questions = [
   {s:"Ingliz tili", q:"Superlative: This is the ___ film I have ever seen.", o:["interesting","more interesting","most interesting","interestingest"], a:2}
 ];
 
-const PASS = 60, PTS = 2, TOTAL = questions.length * PTS, DURATION = 45*60;
+const PASS = 60, PTS = 2, TOTAL = questions.length * PTS, DURATION = 150*60;  // 2 soat 30 daqiqa
+const MAX_WARNINGS = 3;
 
 /* ====================== HOLAT ====================== */
 let user = null;
@@ -418,6 +458,10 @@ let current = 0;
 let timeLeft = DURATION;
 let timerId = null;
 let lastResult = null;
+let examActive = false;     // imtihon davom etayotganini bildiradi (xavfsizlik nazorati uchun)
+let guardPaused = false;    // dialog ko'rsatilayotganda nazoratni vaqtincha to'xtatish
+let warnings = 0;           // ogohlantirishlar soni
+let lastViolation = 0;      // takror hisoblanmasligi uchun
 
 const $ = id => document.getElementById(id);
 const screens = { login:$("screen-login"), dashboard:$("screen-dashboard"), exam:$("screen-exam"), result:$("screen-result") };
@@ -481,6 +525,7 @@ $("r-retry").addEventListener("click", startExam);
 function startExam(){
   answers = new Array(questions.length).fill(null);
   current = 0; timeLeft = DURATION;
+  warnings = 0; examActive = true; guardPaused = false;
   buildPalette();
   renderQuestion();
   show("exam");
@@ -492,14 +537,15 @@ function startExam(){
 function tick(){
   timeLeft--;
   updateTimer();
-  if(timeLeft <= 0){ clearInterval(timerId); finishExam(true); }
+  if(timeLeft <= 0){ clearInterval(timerId); finishExam("time"); }
 }
 function updateTimer(){
-  const m = String(Math.floor(timeLeft/60)).padStart(2,"0");
+  const h = Math.floor(timeLeft/3600);
+  const m = String(Math.floor((timeLeft%3600)/60)).padStart(2,"0");
   const s = String(timeLeft%60).padStart(2,"0");
   const el = $("e-timer");
-  el.textContent = "⏱ " + m + ":" + s;
-  el.classList.toggle("low", timeLeft <= 60);
+  el.textContent = "⏱ " + h + ":" + m + ":" + s;
+  el.classList.toggle("low", timeLeft <= 300);
 }
 
 function buildPalette(){
@@ -540,11 +586,15 @@ $("e-next").addEventListener("click",()=>{ if(current<questions.length-1){curren
 $("e-finish").addEventListener("click",()=>{
   const left = answers.filter(a=>a===null).length;
   const msg = left>0 ? (left + " ta savol javobsiz qoldi. Baribir yakunlaysizmi?") : "Imtihonni yakunlaysizmi?";
-  if(confirm(msg)) finishExam(false);
+  guardPaused = true;
+  const ok = confirm(msg);
+  guardPaused = false;
+  if(ok) finishExam("manual");
 });
 
 /* ====================== RESULT ====================== */
-function finishExam(timeUp){
+function finishExam(reason){
+  examActive = false;
   clearInterval(timerId);
   let score = 0;
   const sec = {};
@@ -558,14 +608,14 @@ function finishExam(timeUp){
   const now = new Date();
   const date = now.toLocaleDateString("uz") + " " + now.toLocaleTimeString("uz",{hour:"2-digit",minute:"2-digit"});
 
-  lastResult = {score, percent, passed, sec, answers:answers.slice(), date};
+  lastResult = {score, percent, passed, sec, answers:answers.slice(), date, reason, warnings};
   const h = loadHist(); h.push({score, percent, passed, date}); saveHist(h);
 
-  renderResult(timeUp);
+  renderResult(reason);
   show("result");
 }
 
-function renderResult(timeUp){
+function renderResult(reason){
   const r = lastResult;
   $("r-score").textContent = r.score;
   const ring = $("r-ring");
@@ -578,7 +628,8 @@ function renderResult(timeUp){
   v.className = "verdict " + (r.passed ? "ok":"no");
   v.textContent = r.passed ? "🎉 Tabriklaymiz! Siz imtihondan o'tdingiz!" : "📚 Afsuski, o'ta olmadingiz";
   $("r-detail").innerHTML = `${user.first} ${user.last} · To'g'ri javoblar: <b>${r.score/PTS}/${questions.length}</b> · ${r.percent}%`
-    + (timeUp ? "<br><span style='color:var(--red)'>⏱ Vaqt tugadi — imtihon avtomatik yakunlandi.</span>" : "")
+    + (reason==="time" ? "<br><span style='color:var(--red)'>⏱ Vaqt tugadi — imtihon avtomatik yakunlandi.</span>" : "")
+    + (reason==="violations" ? "<br><span style='color:var(--red)'>🚫 3 marta ogohlantirishdan so'ng imtihon avtomatik yakunlandi.</span>" : "")
     + `<br>O'tish chegarasi: ${PASS} ball`;
 
   const colors = {"Algebra":"#6366f1","Geometriya":"#06b6d4","Fizika":"#f59e0b","Ingliz tili":"#8b5cf6"};
@@ -626,6 +677,52 @@ function confetti(){
     setTimeout(()=>c.remove(), 5000);
   }
 }
+
+/* ====================== XAVFSIZLIK / OGOHLANTIRISH NAZORATI ====================== */
+function showWarn(n){
+  const left = MAX_WARNINGS - n;
+  $("w-count").textContent = n + " / " + MAX_WARNINGS;
+  $("w-msg").innerHTML = "Siz imtihon oynasidan chiqdingiz yoki boshqa oynaga o'tdingiz.<br>"
+    + (left>0 ? ("Yana <b>" + left + " marta</b> chiqsangiz imtihon avtomatik <b>yakunlanadi</b>!")
+              : "Bu oxirgi ogohlantirish edi — imtihon yakunlanmoqda...");
+  $("warn-overlay").style.display = "flex";
+}
+$("w-ok").addEventListener("click", ()=>{ $("warn-overlay").style.display = "none"; });
+
+function registerViolation(){
+  if(!examActive || guardPaused) return;
+  const now = Date.now();
+  if(now - lastViolation < 1000) return;   // blur + visibilitychange birga ishlasa, ikki marta hisoblamaslik
+  lastViolation = now;
+  warnings++;
+  if(warnings >= MAX_WARNINGS){
+    showWarn(warnings);
+    setTimeout(()=>{ $("warn-overlay").style.display = "none"; finishExam("violations"); }, 1800);
+  } else {
+    showWarn(warnings);
+  }
+}
+
+/* Boshqa tab/oynaga o'tishni aniqlash */
+document.addEventListener("visibilitychange", ()=>{ if(document.hidden) registerViolation(); });
+window.addEventListener("blur", ()=>{ setTimeout(()=>{ if(!document.hasFocus()) registerViolation(); }, 50); });
+
+/* Savollarni nusxalashdan himoya */
+document.addEventListener("contextmenu", e=>{ if(examActive){ e.preventDefault(); } });
+document.addEventListener("copy", e=>{ if(examActive){ e.preventDefault(); } });
+document.addEventListener("cut", e=>{ if(examActive){ e.preventDefault(); } });
+document.addEventListener("selectstart", e=>{ if(examActive){ e.preventDefault(); } });
+document.addEventListener("dragstart", e=>{ if(examActive){ e.preventDefault(); } });
+document.addEventListener("keydown", e=>{
+  if(!examActive) return;
+  const k = (e.key||"").toLowerCase();
+  // F12, Ctrl+Shift+I/J/C (dev tools), Ctrl+U (manba), Ctrl+S (saqlash), Ctrl+P (chop), Ctrl+C (nusxa)
+  if(e.key === "F12") e.preventDefault();
+  if((e.ctrlKey||e.metaKey) && e.shiftKey && ["i","j","c"].includes(k)) e.preventDefault();
+  if((e.ctrlKey||e.metaKey) && ["u","s","p","c","x","a"].includes(k)) e.preventDefault();
+});
+/* Imtihon paytida sahifani yopish/yangilashda ogohlantirish */
+window.addEventListener("beforeunload", e=>{ if(examActive){ e.preventDefault(); e.returnValue = ""; } });
 
 /* ====================== ISHGA TUSHIRISH ====================== */
 (function init(){
